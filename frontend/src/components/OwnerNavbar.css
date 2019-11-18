@@ -1,0 +1,35 @@
+.heading1{
+    color: #2a6ebb;
+    font-size: 40px!important;
+}
+
+
+#nav {
+    width: 100%;
+    white-space: normal;
+    margin-top: 0px;
+}
+
+.items {
+    display: inline-block;
+    width:initial;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+#ulist{
+    display: inline-block;
+}
+
+.mainlinks1 {
+    color: #2a6ebb;
+    text-decoration: none;
+}
+
+.menulinks1 {
+    color:#2a6ebb;
+    text-decoration: none;
+    -webkit-text-decoration-skip: objects;
+    float: left;
+    margin: 0px !important;
+}
