@@ -1,0 +1,11 @@
+.heading1{
+    color:#2a6ebb;
+    font-size: 40px;
+  }
+
+.items {
+    display: inline-block;
+    width:initial;
+    white-space: nowrap;
+    margin-right: 10px;
+  }
