@@ -1,0 +1,26 @@
+.sidebar-nav {
+    list-style: none;
+    list-style-type: circle;
+    font-size: 15px;
+    margin-left: 70px ;
+}
+
+.sidebaritems{
+    font-size: 25px;
+    color: black;
+}
+
+.sidebaritems:active{
+    text-decoration: underline;
+}
+
+.itemlist{
+    margin-bottom: 20px;
+    font-size: 30px;
+    /* display: inline; */
+}
+
+/* a:hover{
+    text-decoration: underline;
+} */
+
