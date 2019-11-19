@@ -15,6 +15,7 @@ import photos from './ListPropertyPhotos/photos';
 import price from './ListPropertyPrice/price';
 import OwnerNavBar from './OwnerNavbar';
 import Ownerdashboard from './OwnerDashboard/Ownerdashboard';
+import Payment from './Payment/Payment';
 
 class Main extends Component {
     render(){
@@ -35,6 +36,7 @@ class Main extends Component {
                 <Route path="/travelertrips" component={travelertrips}/>
                 <Route path="/travelerprofile" component={travelerprofile}/>
                 <Route path="/searchresults" component={searchresults}/>
+                <Route path="/payment" component={Payment}/>
             </div>
         )
     }
