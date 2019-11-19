@@ -17,7 +17,7 @@ class OwnerNavbar extends Component
     }
 
     handleLogout = () => {
-        cookie.remove('cookieO', { path: '/' })
+        // cookie.remove('cookieO', { path: '/' })
         localStorage.clear();
     }
 
