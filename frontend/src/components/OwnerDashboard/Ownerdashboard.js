@@ -13,7 +13,6 @@ import 'bootstrap/dist/js/bootstrap.js';
 import {DASHBOARD_URL} from '../../constants/constants';
 import {PROPERTY_URL} from '../../constants/constants';
 import {BOOKING_URL} from '../../constants/constants';
-import SideNavbar from '../SideNavbar';
 const fs = require('fs');
 
 
@@ -25,7 +24,7 @@ class Ownerdashboard extends Component
             information : [],
             no_of_properties : 0,
             property_information : [],
-            setUserid : localStorage.getItem('setUserid') 
+            setUserid : localStorage.getItem('userId') 
         }
     }
 
@@ -35,28 +34,32 @@ class Ownerdashboard extends Component
                 .then((response) => {
                     console.log("Inside get request for ownerdashboard ");
                     console.log(response.data);
-                    console.log("Response data length in data information: "+response.data.length);
+                    console.log("Response data length in data information: "+response.data);
                     this.setState({
                         information : response.data,
                         no_of_properties : response.data.PropertyId.length
                     })
-                    if(response.data.PropertyId.length > 0)
+                    if(response.data.PropertyId)
                     {
                         // api calls for all the properties for this owner
                         var all_properties = []
+                        // TODO FOR DARSHIL
+                        // update the URL below based on the backend route for getting property details for a property id
                         for(let i=0; i<response.data.PropertyId.length; i++){
-                            axios.get(`${PROPERTY_URL}/owner/` + response.data.PropertyId[0])
+                            axios.get(`${PROPERTY_URL}/` + response.data.PropertyId[0])
                                 .then((res) => {
-                                    console.log("Got the details of the property : " + res.data.Name)
+                                    console.log("Got the details of the property : " + JSON.stringify(res.data))
                                     all_properties.push(res.data)
+                                    this.setState({
+                                        property_information : all_properties
+                                    })
                                 })
                                 .catch((err) => {
                                     console.log("Some error occured : \n" + err)
                                 })
                         }
-                        this.setState({
-                            property_information : all_properties
-                        })
+                        console.log("All properties are: ",all_properties)
+                        
                     }
             });
     }
@@ -66,12 +69,18 @@ class Ownerdashboard extends Component
         let redirectvar = null;
         let view = null;
         let bookings_view = null;
+        let displayImage = null;
+        if( !localStorage.getItem("userId") )
+        {
+            redirectvar = <Redirect to= "/homepage"/>
+        }
         // console.log("========> this.state.information.PropertyId : " + JSON.stringify(this.state.information.PropertyId))
+        console.log(this.state.property_information)
         if(this.state.no_of_properties > 0)
         {
             view = this.state.property_information.map(property => {
                 // TODO : see how Bookings array is stored in the property object
-                if(property.Bookings > 0){
+                if(property.bookings > 0){
                     bookings_view = property.Bookings.map(booking => {
                         return (
                             <div>
@@ -89,15 +98,52 @@ class Ownerdashboard extends Component
                         </div>
                     );
                 }
+                if(!property.image)
+                    { 
+                        displayImage = (
+                            <div>
+                                <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                    <div class="carousel-inner">
+                                        <div class="carousel-item active">
+                                            <img src = "https://cmpe281-propertyimages.s3-us-west-2.amazonaws.com/airbnb.png" height="300" width="420"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    }
+                else if(property.image)
+                {
+                    displayImage = (
+                        <div>                            
+                            <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                                <div class="carousel-inner">
+                                    <div class="carousel-item active">
+                                        <img src = {property.image} height="300" width="420"/>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    )
+                }
                 return(
                     <div>
                     <div class="property_detials">
-                        <h3>{property.Name}</h3>
-                        <p><u>Location </u> : {property.Address}, {property.City}, {property.State}, {property.Zipcode}, {property.Country}</p>
-                        <p><u>Property type</u> : {property.PropertyType}</p>
-                        <p>Bedrooms : {property.Bedrooms}, Bathrooms : {property.Bathrooms}, Accomodates : {property.Accomodates}</p>
-                        <p>Rate : ${property.Tariff}</p>
-                        <p>{bookings_view}</p>
+                    <div class="row">
+                        <div class="col-md-5">
+                            {displayImage} 
+                        </div>
+                        <div class="col-md-7 right-side">
+                            <h3>{property.name}</h3>
+                            <p><u>Location </u> : {property.address}, {property.city}, {property.state}, {property.zipcode}, {property.country}</p>
+                            <p><u>Property type</u> : {property.propertytype}</p>
+                            <p><u>Bedrooms</u> : {property.bedrooms}, <u>Bathrooms</u> : {property.bathrooms}, <u>Accomodates</u> : {property.accomodates}</p>
+                            <p><u>Available from</u>: {property.startdate}</p>
+                            <p><u>Available to</u>: {property.enddate}</p>
+                            <p><u>Rate</u>: ${property.tariff}</p>
+                            <p>{bookings_view}</p>
+                        </div>
+                    </div>
                     </div>
                     <hr></hr>
                     </div>

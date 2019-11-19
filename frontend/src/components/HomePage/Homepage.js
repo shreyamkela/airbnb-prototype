@@ -13,6 +13,7 @@ import 'bootstrap/dist/js/bootstrap.bundle.min';
 import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 import 'bootstrap/dist/js/bootstrap.js';
 import './homepage.css';
+import {PROPERTY_URL} from '../../constants/constants'
 
 class Homepage extends Component {
     constructor(props){
@@ -21,11 +22,12 @@ class Homepage extends Component {
 
         this.state={
             flag : false,
-            username : sessionStorage.getItem('SessionUsername'),
+            username : localStorage.getItem('firstname'),
             location : '',
             startDate : '',
             endDate : '',
-            guests : ''
+            guests : '',
+            responseData:null
         }
 
         this.SearchButton = this.SearchButton.bind(this);
@@ -40,22 +42,47 @@ class Homepage extends Component {
         if(this.state.location == "" || this.state.startDate == "" || this.state.endDate == "" || this.state.guests == "")
             alert("None of the fields can be empty");
         else{
+            var newDate = new Date(this.state.startDate)
+            // console.log("Converted Date is: ",newDate)
+            var year = newDate.getFullYear();
+            var month = newDate.getMonth()+1;
+            var day = newDate.getDate()+1;
+            if(month<10)
+                month = "0"+month;
+            if(day<10)
+                day = "0"+day;
+            var stringStartDate = year + "-" + month + "-" + day;
+            newDate = new Date(this.state.endDate);
+            year = newDate.getFullYear();
+            month = newDate.getMonth()+1;
+            day = newDate.getDate()+1;
+            if(month<10)
+                month = "0"+month;
+            if(day<10)
+                day = "0"+day;
+            var stringEndDate = year + "-" + month + "-" + day;
+            console.log("String Date is: ",stringStartDate)
             const data = {
-                location : this.state.location,
-                startDate : this.state.startDate,
-                endDate : this.state.endDate,
-                guests : this.state.guests
+                Location : this.state.location,
+                StartDate : stringStartDate,
+                EndDate : stringEndDate,
+                Accomodates : parseInt(this.state.guests)
             }
 
-            axios.defaults.withCredentials = true;
-            axios.post('http://localhost:3001/homepage/data',data)
+            // axios.defaults.withCredentials = true;
+            axios.post(`${PROPERTY_URL}/search`,data)
                 .then(response => {
                     console.log("Status Code : ",response.status);
                     if(response.status === 200){
-                        alert("Traveler request for search property submitted successfully");
                         this.setState({
                             flag : true,
+                            responseData:response.data,
+                            startDate:stringStartDate,
+                            endDate:stringEndDate
                         })
+                        if(!response.data){
+                            alert("No Available Properties")
+                        }
                     }
                     else{
                         this.setState({
@@ -64,16 +91,17 @@ class Homepage extends Component {
                     }
                 })
                 .catch(err =>{
-                    alert("Invalid request for search property");
+                    alert(err);
                 });
         }
     }
 
     handleLogout = () => {
-        cookie.remove('cookieT', { path: '/' })
-        // window.location.reload();
-        sessionStorage.removeItem('SessionEmail');
-        sessionStorage.removeItem('SessionUsername');
+        localStorage.clear();
+        alert("Successfully Logged out")
+        this.setState({
+            username:''
+        })
     }
 
     ChangeHandler(e) {
@@ -85,15 +113,29 @@ class Homepage extends Component {
     render(){
         let redirectvar = null
         // console.log("Username is : "+this.state.username)
-        if(cookie.load('cookieT') && this.state.flag==true){
-            redirectvar = <Redirect to= "/searchresults"/>
+        if(localStorage.getItem("userId") && this.state.responseData){
+            console.log("should redirect")
+            redirectvar = <Redirect to= {{
+                pathname: '/searchresults',
+                state:{
+                    responseData: this.state.responseData,
+                    location : this.state.location,
+                    startDate : this.state.startDate,
+                    endDate : this.state.endDate,
+                    guests : this.state.guests
+                }
+            }}/>
         }
-        if(!cookie.load('cookieT') && this.state.flag==true){
+        
+        if(localStorage.getItem("type")=="owner"){
+            redirectvar = <Redirect to="/listproperty/welcome"/>
+        }else if(!localStorage.getItem('userId') && this.state.responseData){
             alert("You need to log in first!");
+            redirectvar = <Redirect to="/travelerlogin"/>
         }
 
         let usernamedropdown = null;
-        if(cookie.load('cookieT')){
+        if(this.state.username){
             usernamedropdown = (
                 <li class="dropdown items">
                     <a href="#" class="dropdown-toggle mainlinks" data-toggle="dropdown"> {this.state.username} <span class="caret"></span></a>
@@ -178,12 +220,12 @@ class Homepage extends Component {
                                     <span class="glyphicon glyphicon-map-marker form-control-feedback"></span>
                                 </div>
                                 <div class="col-md-2">
-                                    <input onChange = {this.ChangeHandler} type="date" name="startDate" id="startDate" class="form-control js-Date" min="2018-09-30" max="2018-12-31"/>
+                                    <input onChange = {this.ChangeHandler} type="date" name="startDate" id="startDate" class="form-control js-Date"/>
                                     <i class="icon-calendar form-control-icon" aria-hidden="true">
                                     </i>
                                 </div>
                                 <div class="col-md-2">
-                                    <input onChange = {this.ChangeHandler} type="date" name="endDate" id="endDate" class="form-control js-Date" min="2018-09-30" max="2018-12-31"/>
+                                    <input onChange = {this.ChangeHandler} type="date" name="endDate" id="endDate" class="form-control js-Date"/>
                                 </div>
                                 <div class="col-md-2">
                                     <input onChange = {this.ChangeHandler} type="number" name="guests" id="guests" class="form-control" min="1" max="200" placeholder="Guests"/>
