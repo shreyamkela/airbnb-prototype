@@ -28,11 +28,11 @@ class SideNavbar extends Component
                         <li class="itemlist">
                             <a class="sidebaritems" href="http://localhost:3000/listproperty/details">Details</a>
                         </li>
-                        {/* <li class="itemlist">
-                            <a class="sidebaritems" href="http://localhost:3000/listproperty/photos">Photos</a>
-                        </li> */}
                         <li class="itemlist">
                             <a class="sidebaritems" href="http://localhost:3000/listproperty/price">Pricing</a>
+                        </li>
+                        <li class="itemlist">
+                            <a class="sidebaritems" href="http://localhost:3000/listproperty/photos">Photos</a>
                         </li>
                     </ul>
                 </div>

@@ -1,0 +1,43 @@
+#mainbody {
+    background-color: #f4f4f4;
+    padding-top: 60px;
+    padding-bottom: 10px;
+    border: 1px solid rgb(206, 202, 202);
+    min-height: 500px;
+}
+
+.formbody{
+    background-color: white;
+    margin-left: 30px;
+    margin-bottom: 40px;
+    width: 80%;
+    box-shadow: 5px 5px rgb(241, 237, 237);
+}
+
+.heading4{
+    margin-left: 50px;
+}
+
+.text{
+    margin-left: 50px;
+    color: rgb(59, 58, 58);
+    margin-bottom: 40px;
+}
+
+.form-control{
+    height: 50px;
+}
+
+.form-group{
+    margin: 10px 60px 20px 60px;
+}
+
+.alert-danger{
+    margin: 10px 60px 20px 60px;
+}
+
+.save-button{
+    width: 100px;
+    font-size: 20px; 
+    margin : 0px 30px;
+}
