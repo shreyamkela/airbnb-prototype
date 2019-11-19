@@ -1,0 +1,50 @@
+#mainbody {
+    background-color: #f4f4f4;
+    padding-top: 60px;
+    padding-bottom: 10px;
+    border: 1px solid rgb(206, 202, 202);
+    min-height: 500px;
+}
+
+.formbody{
+    background-color: white;
+    margin-left: 30px;
+    margin-bottom: 40px;
+    width: 80%;
+    box-shadow: 5px 5px rgb(241, 237, 237);
+}
+
+.lbl{
+    margin-left: 60px;
+    font-size: 18px;
+}
+
+.datestyle ,.pricefield {
+    width: 40%;
+    height: 40px;
+    margin-left : 30px;
+    border-radius: 5px;
+}
+
+.alert-danger{
+    margin: 10px 60px 20px 60px;
+}
+
+[type="date"]::-webkit-inner-spin-button {
+    display: none;
+  }
+
+input[type="date"]::-webkit-calendar-picker-indicator {
+    opacity: 0.8;
+    background: url(https://cdn1.iconfinder.com/data/icons/cc_mono_icon_set/blacks/16x16/calendar_2.png) no-repeat;
+    color: rgba(0, 0, 0, 0);
+    width: 20px;
+    height: 15px;
+    border-width: thin;
+}
+
+.submit-button{
+    width: 150px;
+    font-size: 23px; 
+    margin : 0px 30px;
+}

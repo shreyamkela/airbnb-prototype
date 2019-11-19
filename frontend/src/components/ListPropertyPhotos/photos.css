@@ -1,0 +1,53 @@
+#mainbody {
+    background-color: #f4f4f4;
+    padding-top: 60px;
+    padding-bottom: 10px;
+    border: 1px solid rgb(206, 202, 202);
+    min-height: 500px;
+}
+
+.formbody{
+    background-color: white;
+    margin-left: 30px;
+    width: 80%;
+    box-shadow: 5px 5px rgb(241, 237, 237);
+    min-height : 350px;
+}
+
+.heading4{
+    margin-left: 50px;
+}
+
+.text{
+    margin-left: 50px !important;
+    color: rgb(59, 58, 58);
+    margin-bottom: 40px;
+}
+
+.photouploadbox{
+    margin : 30px 30px 40px 30px;
+    border: 2px dashed rgb(206, 202, 202);
+    min-height: 100px;
+}
+
+.file-upload-button{
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin: 40px 0px 40px 0px;
+    font-size: 20px;
+    color: #2a6ebb;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+.save-button{
+    width: 100px;
+    font-size: 20px; 
+    margin : 0px 30px;
+}
