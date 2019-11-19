@@ -1,0 +1,56 @@
+.heading1{
+    color:#2a6ebb;
+    font-size: 40px;
+  }
+
+.items {
+    display: inline-block;
+    width:initial;
+    white-space: nowrap;
+    margin-right: 10px;
+  }
+
+  .formbodydiv{
+    background: #ffffff none repeat scroll 0 0;
+    border-radius: 2px;
+    margin: 10px auto 30px;
+    max-width: 30%;
+    padding: 10px 30px 40px 30px;
+    border: 1px solid rgb(187, 184, 184);
+  }
+  
+.panel-dashboard .panel-title {
+    font-family: "Roboto",Arial,sans-serif;
+    color: #666;
+    font-size: 22px;
+    font-weight: 300;
+    margin: 0px;
+}
+  
+.login-form .form-control {
+    background: #f7f7f7 none repeat scroll 0 0;
+    border: 1px solid #d4d4d4;
+    border-radius: 4px;
+    font-size: 20px;
+    height: 50px;
+    line-height: 50px;
+}
+  
+/* .from-group .btn .btn-primary .btn-lg .btn-block {
+    background-color: #ff8a00 !important;
+    color: #fff;
+    text-shadow: none;
+    border-color: #ff8a00 !important;
+  } */
+
+.login-form  .btn.btn-primary {
+    background: #ff8a00 none repeat scroll 0 0;
+    border-color: #ff8a00;
+    color: #ffffff;
+    font-size: 18px;
+    width: 100%;
+    height: 50px;
+    line-height: 50px;
+    padding: 0;
+    font-weight: bold;
+}
