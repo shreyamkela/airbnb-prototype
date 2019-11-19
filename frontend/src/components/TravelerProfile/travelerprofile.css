@@ -1,0 +1,95 @@
+.heading1{
+    color: #2a6ebb;
+    font-size: 40px!important;
+}
+
+
+#nav {
+    width: 100%;
+    white-space: normal;
+    margin-top: 0px;
+}
+
+.items {
+    display: inline-block;
+    width:initial;
+    white-space: nowrap;
+    margin-right: 10px;
+}
+
+#ulist{
+    display: inline-block;
+}
+
+.mainlinks1 {
+    color: #007bff !important;
+    text-decoration: none;
+    /* background-color: transparent;
+    -webkit-text-decoration-skip: objects; */
+}
+
+.menulinks1 {
+    color:#007bff !important;
+    text-decoration: none;
+    -webkit-text-decoration-skip: objects;
+    float: left;
+    margin: 0px !important;
+}
+
+.listPropBtn {
+    color: #007bff;
+    border-radius: 30px !important;
+    background-color: white ;
+    border-color: #007bff;
+    padding: 10px 25px !important;
+}
+
+.mainbody{
+    border: 1px solid rgb(206, 202, 202);
+}
+
+.profilepic{
+    background-image: url("https://odis.homeaway.com/mda01/7f257b13-2434-404e-b967-285a6b7eca02.2.2");
+    background-position: center;
+    background-size: cover;
+    height: 100px;
+    width: 100px;
+    background-repeat: no-repeat;
+}
+
+.profileinfo{
+    margin: 50px 0px 20px 0px;
+}
+
+.infoform{
+    margin: auto;
+    width: 600px;
+    border: 1px solid rgb(206, 202, 202);
+    padding: 40px;
+}
+
+.mybutton{
+    width: 200px;
+    font-size: 20px;
+    border-radius: 40px;
+}
+
+.imgCircle{
+    border-radius: 60px;
+}
+
+.file-upload-button{
+    border: 1px solid #ccc;
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+    margin: 10px;
+    font-size: 20px;
+    color: #2a6ebb;
+    font-weight: bold;
+    border-radius: 10px;
+}
+
+input[type="file"] {
+    display: none;
+}
