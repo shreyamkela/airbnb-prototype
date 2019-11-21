@@ -13,7 +13,7 @@ phases:
     commands:
       - echo Build started on `date`
       - echo Building the Docker image...
-      - cd Airbnb/backend-go/Dashboard
+      - cd backend/Dashboard
       - ls
       - echo $REPOSITORY_URI
       - docker build -t $REPOSITORY_URI:latest .
