@@ -10,3 +10,13 @@ type User_details struct {
 	BookingId []string
 	CardNumber string 
 }
+
+type Owner_property_ids struct {
+	OwnerId string
+	PropertyId string
+}
+
+type Traveler_booking_ids struct {
+	TravelerId string
+	BookingId string
+}
