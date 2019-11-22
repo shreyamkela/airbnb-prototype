@@ -51,7 +51,10 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/", postProperty(formatter)).Methods("POST")
 	mx.HandleFunc("/{id}", findPropertyById(formatter)).Methods("GET")
+	mx.HandleFunc("/owner/{id}", findPropertyByOwnerId(formatter)).Methods("GET")
+	mx.HandleFunc("/{id}/book", bookProperty(formatter)).Methods("POST")
 	mx.HandleFunc("/search", searchProperty(formatter)).Methods("POST")
+	mx.HandleFunc("/{id}/review", reviewProperty(formatter)).Methods("POST")
 	mx.HandleFunc("/{id}/upload", uploadPictures(formatter)).Methods("POST")
 }
 
@@ -134,9 +137,93 @@ func findPropertyById(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-//Find property by Owner ID
+func findPropertyByOwnerId(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		params := mux.Vars(req)
+		var owner_id string = params["id"]
+		fmt.Println("Owner ID is: ", owner_id)
+		session, err := mgo.Dial(mongodb_server)
+		if err != nil {
+			formatter.JSON(w, http.StatusInternalServerError, err)
+		}
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
+		var result []Property
+		err = c.Find(bson.M{"ownerid": owner_id}).All(&result)
+		if err != nil {
+			formatter.JSON(w, http.StatusInternalServerError, err)
+		}
+		//fmt.Println("Property data:", result)
+		formatter.JSON(w, http.StatusOK, result)
+	}
+}
 
-//Book Property
+func bookProperty(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		params := mux.Vars(req)
+		var property_id string = params["id"]
+		fmt.Println("Property ID to book is: ", property_id)
+
+		session, err := mgo.Dial(mongodb_server)
+		if err != nil {
+			formatter.JSON(w, http.StatusInternalServerError, "Server Error")
+		}
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
+
+		//working with request body
+		var booking BookingInformation
+		json.NewDecoder(req.Body).Decode(&booking)
+		start := booking.StartDate
+		end := booking.EndDate
+		layout := "2006-01-02"
+		t, _ := time.Parse(layout, start)
+		t1, _ := time.Parse(layout, end)
+		fmt.Println("time converted is: ", t)
+		t1 = t1.AddDate(0, 0, 1)
+
+		// Getting the property document
+		var property Property
+		err = c.Find(bson.M{"_id": property_id}).One(&property)
+		if err != nil {
+			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
+		}
+
+		//getting the booking dates
+		var bookedDates []time.Time
+		bookedDates = property.BookedDates
+		// fmt.Println("time converted is: ", t1)
+		for d := t; !t1.Equal(d); d = d.AddDate(0, 0, 1) {
+			fmt.Println("Looping through dates: ", d)
+			bookedDates = append(bookedDates, d)
+		}
+
+		var bookings []BookingInformation
+		bookings = property.Bookings
+		bookings = append(bookings, booking)
+
+		//updating the document to book dates
+		//ref: https://gist.github.com/border/3489566
+		selector := bson.M{"_id": property_id}
+		update := bson.M{"$set": bson.M{"bookeddates": bookedDates, "bookings": bookings}}
+		err = c.Update(selector, update)
+		if err != nil {
+			formatter.JSON(w, http.StatusInternalServerError, err)
+		}
+
+		// //updating for pushing new booking
+		// selector = bson.M{"_id": property_id}
+		// update = bson.M{"$push": bson.M{"bookings": booking}}
+		// err = c.Update(selector, update)
+
+		// if err != nil {
+		// 	formatter.JSON(w, http.StatusInternalServerError, err)
+		// }
+
+		formatter.JSON(w, http.StatusOK, "Successfully Updated")
+	}
+}
 
 func searchProperty(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
@@ -191,7 +278,36 @@ func searchProperty(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-//Review Property
+
+
+func reviewProperty(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		params := mux.Vars(req)
+		var property_id string = params["id"]
+		fmt.Println("Property ID to review is: ", property_id)
+
+		session, err := mgo.Dial(mongodb_server)
+		if err != nil {
+			formatter.JSON(w, http.StatusInternalServerError, "Server Error")
+		}
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
+
+		//working with request body
+		var review Review
+		json.NewDecoder(req.Body).Decode(&review)
+
+		//updating the document to book dates
+		//ref: https://gist.github.com/border/3489566
+		selector := bson.M{"_id": property_id}
+		update := bson.M{"$push": bson.M{"reviews": review}}
+		err = c.Update(selector, update)
+		if err != nil {
+			formatter.JSON(w, http.StatusInternalServerError, err)
+		}
+		formatter.JSON(w, http.StatusOK, "Successfully Updated")
+	}
+}
 
 
 
