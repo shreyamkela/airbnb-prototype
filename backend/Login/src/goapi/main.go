@@ -21,6 +21,8 @@ func main() {
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
 	client, _ = mongo.Connect(ctx, options.Client().ApplyURI(mongoURI))
 	router := mux.NewRouter()
-	router.HandleFunc("/allusers", GetUsers).Methods("GET")
+	router.HandleFunc("/signup", PutUser).Methods("POST", "OPTIONS") // Enabling OPTIONS is necessary. Refer - https://stackoverflow.com/questions/39507065/enable-cors-in-golang
+	router.HandleFunc("/login", GetUser).Methods("POST", "OPTIONS")
+	//router.HandleFunc("/allusers", GetUsers).Methods("GET")
 	http.ListenAndServe(":"+PORT, router)
 }
