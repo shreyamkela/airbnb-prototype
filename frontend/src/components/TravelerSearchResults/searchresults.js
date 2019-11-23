@@ -157,7 +157,7 @@ class searchresults extends Component
                                 <h4><b>Reviews</b></h4><br></br>
                                 <p class="info">{reviews}</p>
                                 <hr></hr>
-                                <button class="btn btn-primary book-button" onClick = {() => {this.BookProperty(property.PropertyID)}} name="BookButton" value={property.PropertyID}>
+                                <button class="btn btn-primary book-button" onClick = {() => {this.BookProperty(property.PropertyID,property.Name,property.OwnerID)}} name="BookButton" value={property.PropertyID}>
                                     <span>Book</span>
                                 </button>
                             </div>
