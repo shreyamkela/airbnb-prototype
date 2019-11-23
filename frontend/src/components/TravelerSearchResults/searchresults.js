@@ -132,8 +132,8 @@ class searchresults extends Component
                         )
                     }
                 
-                    property.Reviews.map(review => {
-                        reviews = (
+                    reviews = property.Reviews.map(review => {
+                        return(
                             <div>
                                 <p class="text-left text-dark bg-light">{review.Comment}</p>
                                 <p class="text-right font-weight-light">Posted by: {review.TravelerName}</p>
@@ -153,7 +153,11 @@ class searchresults extends Component
                                 <p class="info">{property.Address}, {property.City}, {property.State}, {property.Zipcode}, {property.Country}</p>
                                 <p class="info">{property.PropertyType} - Bedrooms : {property.Bedrooms}, Bathrooms : {property.Bathrooms}, Accomodates : {property.Accomodates}</p>
                                 <p class="price">$ {property.Tariff} per night</p>
-                                <button class="btn btn-primary book-button" onClick = {() => {this.BookProperty(property.PropertyID,property.Name,property.OwnerID)}} name="BookButton" value={property.PropertyID}>
+                                <hr></hr>
+                                <h4><b>Reviews</b></h4><br></br>
+                                <p class="info">{reviews}</p>
+                                <hr></hr>
+                                <button class="btn btn-primary book-button" onClick = {() => {this.BookProperty(property.PropertyID)}} name="BookButton" value={property.PropertyID}>
                                     <span>Book</span>
                                 </button>
                             </div>
@@ -181,7 +185,7 @@ class searchresults extends Component
                     <nav class="navbar navbar-default navbar-expand-sm" id="nav">
                         <div class="container-fluid">
                             <div class="navbar-header">
-                                    <a href="http://localhost:3000/homepage" class="navbar-brand">
+                                    <a href="/homepage" class="navbar-brand">
                                         <p class="heading1">Airbnb</p>
                                     </a>
                             </div>
@@ -194,8 +198,8 @@ class searchresults extends Component
                                         <a href="#" class="dropdown-toggle mainlinks1" data-toggle="dropdown"> {this.state.setUsername} <span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-right mymenu">
                                             <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Inbox</a></li>
-                                            <li class="listitems"><a class="dropdown-item menulinks1" href="http://localhost:3000/travelertrips" role="menu">My trips</a></li>
-                                            <li class="listitems"><a class="dropdown-item menulinks1" href="http://localhost:3000/travelerprofile" role="menu">My profile</a></li>
+                                            <li class="listitems"><a class="dropdown-item menulinks1" href="/travelertrips" role="menu">My trips</a></li>
+                                            <li class="listitems"><a class="dropdown-item menulinks1" href="/travelerprofile" role="menu">My profile</a></li>
                                             <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Account</a></li>
                                             <li class="listitems"><Link to="/homepage" onClick = {this.handleLogout} class="dropdown-item menulinks1" role="menu">Logout</Link></li>
                                         </ul>

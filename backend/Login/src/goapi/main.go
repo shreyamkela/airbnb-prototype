@@ -13,7 +13,7 @@ import (
 
 var client *mongo.Client
 
-var mongoURI string = "mongodb://localhost:27017"
+var mongoURI string = "mongodb://18.232.141.20:27017"
 var PORT string = "3001"
 
 func main() {
@@ -23,6 +23,7 @@ func main() {
 	router := mux.NewRouter()
 	router.HandleFunc("/signup", PutUser).Methods("POST", "OPTIONS") // Enabling OPTIONS is necessary. Refer - https://stackoverflow.com/questions/39507065/enable-cors-in-golang
 	router.HandleFunc("/login", GetUser).Methods("POST", "OPTIONS")
-	//router.HandleFunc("/allusers", GetUsers).Methods("GET")
+	router.HandleFunc("/ping", Ping).Methods("GET", "OPTIONS")
+	router.HandleFunc("/allusers", GetUsers).Methods("GET", "OPTIONS")
 	http.ListenAndServe(":"+PORT, router)
 }

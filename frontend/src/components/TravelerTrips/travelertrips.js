@@ -36,7 +36,7 @@ class travelertrips extends Component
     }
 
     componentDidMount(){
-        axios.defaults.withCredentials = true;
+        // axios.defaults.withCredentials = true;
         axios.get(`${DASHBOARD_URL}/travelerprofile/` + this.state.setUserid)
                 .then((response) => {
                     console.log("Printing the response data : ");
@@ -55,16 +55,17 @@ class travelertrips extends Component
                             console.log("Have to fetch the booking details of the booking id : " + response.data.BookingId[i])
                             axios.get(`${BOOKING_URL}/Booking/` + response.data.BookingId[i])
                                 .then((response1) => {
-                                    console.log("Got the details of the booking " + response1.BookingId)
+                                    console.log("Got the details of the booking " + response.Id)
                                     all_bookings.push(response1.data)
+                                    this.setState({
+                                        booking_information : all_bookings
+                                    })
                                 })
                                 .catch((err) => {
                                     console.log("Some error occured \n" + err)
                                 })
                         }
-                        this.setState({
-                            booking_information : all_bookings
-                        })
+                        
                     }
                 })
                 .catch((err) => {
@@ -105,13 +106,13 @@ class travelertrips extends Component
             TravelerName : localStorage.getItem("firstname"),
             Comment : comment
         }
-        axios.post(`${PROPERTY_URL}/review/${propertyId}`,data)
+        axios.post(`${PROPERTY_URL}/${propertyId}/review`,data)
             .then(response => {
                 if(response.status===200){
                     // TODO : VINAY
                     // make an api call to the booking database and add this comment under this booking_id
                     const data1={
-                        BookingId:bookingId,
+                        Id:bookingId,
                         Comment:data.Comment
                     }
                     axios.put(`${BOOKING_URL}/BookingReview`,data1)
@@ -145,7 +146,7 @@ class travelertrips extends Component
                 if(booking_comment == null || booking_comment == "") {
                     booking_comment = "Enter your comment here ......"
                     review_button = (
-                        <button type="button" class="btn btn-primary book-button" onClick = {() => {this.ReviewBooking(booking.PropertyId, booking.BookingId)}} name="ReviewButton" >
+                        <button type="button" class="btn btn-primary book-button" onClick = {() => {this.ReviewBooking(booking.Property_id, booking.Id)}} name="ReviewButton" >
                             <span>Review this booking</span>
                         </button>
                     );
@@ -160,14 +161,14 @@ class travelertrips extends Component
                 return(
                     <div>
                     <div class="property_detials">
-                        <h3>Booked the property : {booking.PropertyName}</h3>
+                        <h3>Booked the property : {booking.Property_name}</h3>
                         {/* <p>{property.address}, {property.city}, {property.state}, {property.zipcode}, {property.country}</p> */}
                         {/* <p>{property.propertyType} - Bedrooms : {property.bedrooms}, Bathrooms : {property.bathrooms}</p> */}
-                        <p>Booking from <b>{booking.StartDate}</b> to <b>{booking.EndDate}</b></p>
+                        <p>Booking from <b>{booking.From}</b> to <b>{booking.To}</b></p>
                         {/* <p>You paid $ <b>{property.pricePerNight}</b> per night </p> */}
                         {/* <p>Property owner : {property.ownerEmail}</p> */}
                         <br></br>
-                        <input onChange = {(e) => this.ChangeHandler(e, booking.BookingId)} id="comment" name="comment" class="form-control" type="text" size="50" placeholder={booking_comment}/>
+                        <input onChange = {(e) => this.ChangeHandler(e, booking.Id)} id="comment" name="comment" class="form-control" type="text" size="50" placeholder={booking_comment}/>
                         {review_button}
                     </div>
                     <hr></hr>
@@ -191,7 +192,7 @@ class travelertrips extends Component
                 <nav class="navbar navbar-default navbar-expand-sm" id="nav">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                                <a href="http://localhost:3000/homepage" class="navbar-brand">
+                                <a href="/homepage" class="navbar-brand">
                                     <p class="heading1">Airbnb</p>
                                 </a>
                         </div>
@@ -204,8 +205,8 @@ class travelertrips extends Component
                                     <a href="#" class="dropdown-toggle mainlinks1" data-toggle="dropdown"> {this.state.setUsername} <span class="caret"></span></a>
                                     <ul class="dropdown-menu dropdown-menu-right mymenu">
                                         <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Inbox</a></li>
-                                        <li class="listitems"><a class="dropdown-item menulinks1" href="http://localhost:3000/travelertrips" role="menu">My trips</a></li>
-                                        <li class="listitems"><a class="dropdown-item menulinks1" href="http://localhost:3000/travelerprofile" role="menu">My profile</a></li>
+                                        <li class="listitems"><a class="dropdown-item menulinks1" href="/travelertrips" role="menu">My trips</a></li>
+                                        <li class="listitems"><a class="dropdown-item menulinks1" href="/travelerprofile" role="menu">My profile</a></li>
                                         <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Account</a></li>
                                         <li class="listitems"><Link to="/homepage" onClick = {this.handleLogout} class="dropdown-item menulinks1" role="menu">Logout</Link></li>
                                     </ul>

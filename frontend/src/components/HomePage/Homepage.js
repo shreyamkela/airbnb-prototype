@@ -141,8 +141,8 @@ class Homepage extends Component {
                     <a href="#" class="dropdown-toggle mainlinks" data-toggle="dropdown"> {this.state.username} <span class="caret"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right mymenu">
                         <li class="listitems"><a class="dropdown-item menulinks" href="#" role="menu">Inbox</a></li>
-                        <li class="listitems"><a class="dropdown-item menulinks" href="http://localhost:3000/travelertrips" role="menu">My trips</a></li>
-                        <li class="listitems"><a class="dropdown-item menulinks" href="http://localhost:3000/travelerprofile" role="menu">My profile</a></li>
+                        <li class="listitems"><a class="dropdown-item menulinks" href="/travelertrips" role="menu">My trips</a></li>
+                        <li class="listitems"><a class="dropdown-item menulinks" href="/travelerprofile" role="menu">My profile</a></li>
                         <li class="listitems"><a class="dropdown-item menulinks" href="#" role="menu">Account</a></li>
                         {/* <li class="listitems"><a onClick={this.handleLogout} class="dropdown-item menulinks" role="menu">Logout</a></li> */}
                         <li class="listitems"><Link to="/homepage" onClick = {this.handleLogout} class="dropdown-item menulinks" role="menu">Logout</Link></li>
@@ -155,8 +155,8 @@ class Homepage extends Component {
                 <li class="dropdown items">
                     <a href="#" class="dropdown-toggle mainlinks" data-toggle="dropdown"> <b>Login </b> <span class="caret"></span></a>
                     <ul class="dropdown-menu dropdown-menu-right mymenu">
-                        <li class="listitems"><a class="dropdown-item menulinks" href="http://localhost:3000/travelerlogin" role="menu">Traveller login</a></li>
-                        <li class="listitems"><a class="dropdown-item menulinks" href="http://localhost:3000/ownerlogin" role="menu">Owner login</a></li>
+                        <li class="listitems"><a class="dropdown-item menulinks" href="/travelerlogin" role="menu">Traveller login</a></li>
+                        <li class="listitems"><a class="dropdown-item menulinks" href="/ownerlogin" role="menu">Owner login</a></li>
                     </ul>
                 </li>
             )
@@ -170,7 +170,7 @@ class Homepage extends Component {
                 <nav class="navbar navbar-default navbar-expand-sm" id="nav">
                     <div class="container-fluid">
                         <div class="navbar-header">
-                                <a href="http://localhost:3000/homepage" class="navbar-brand">
+                                <a href="/homepage" class="navbar-brand">
                                     <p class="heading">Airbnb</p>
                                 </a>
                         </div>
