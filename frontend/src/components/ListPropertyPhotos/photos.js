@@ -70,7 +70,7 @@ class photos extends Component
                     var propertyId = response.data
                     let formData = new FormData();
                     formData.append('jpg', this.state.selectedFile);
-                    axios.post(`${PROPERTY_URL}/${propertyId}/upload`,formData)
+                    axios.post(`${PROPERTY_URL}/upload/${propertyId}`,formData)
                         .then(response2 => {
                             if(response2.status === 200){
                                 console.log("Property Posted Successfully")

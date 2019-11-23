@@ -46,7 +46,7 @@ class Ownerdashboard extends Component
                         // TODO FOR DARSHIL
                         // update the URL below based on the backend route for getting property details for a property id
                         for(let i=0; i<response.data.PropertyId.length; i++){
-                            axios.get(`${PROPERTY_URL}/` + response.data.PropertyId[0])
+                            axios.get(`${PROPERTY_URL}/find/` + response.data.PropertyId[0])
                                 .then((res) => {
                                     console.log("Got the details of the property : " + JSON.stringify(res.data))
                                     all_properties.push(res.data)
@@ -105,7 +105,7 @@ class Ownerdashboard extends Component
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src = "https://cmpe281-propertyimages.s3-us-west-2.amazonaws.com/airbnb.png" height="300" width="420"/>
+                                            <img src = "http://dwz5dvieyr9hn.cloudfront.net/airbnb.png" height="300" width="420"/>
                                         </div>
                                     </div>
                                 </div>

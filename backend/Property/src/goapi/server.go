@@ -49,13 +49,13 @@ func NewServer() *negroni.Negroni {
 
 func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
-	mx.HandleFunc("/", postProperty(formatter)).Methods("POST")
-	mx.HandleFunc("/{id}", findPropertyById(formatter)).Methods("GET")
-	mx.HandleFunc("/owner/{id}", findPropertyByOwnerId(formatter)).Methods("GET")
-	mx.HandleFunc("/{id}/book", bookProperty(formatter)).Methods("POST")
-	mx.HandleFunc("/search", searchProperty(formatter)).Methods("POST")
-	mx.HandleFunc("/{id}/review", reviewProperty(formatter)).Methods("POST")
-	mx.HandleFunc("/{id}/upload", uploadPictures(formatter)).Methods("POST")
+	mx.HandleFunc("/property/", postProperty(formatter)).Methods("POST")
+	mx.HandleFunc("/property/find/{id}", findPropertyById(formatter)).Methods("GET")
+	mx.HandleFunc("/property/owner/{id}", findPropertyByOwnerId(formatter)).Methods("GET")
+	mx.HandleFunc("/property/book/{id}", bookProperty(formatter)).Methods("POST")
+	mx.HandleFunc("/property/search", searchProperty(formatter)).Methods("POST")
+	mx.HandleFunc("/property/review/{id}", reviewProperty(formatter)).Methods("POST")
+	mx.HandleFunc("/property/upload/{id}", uploadPictures(formatter)).Methods("POST")
 }
 
 // API Ping Handler (GET call)
@@ -353,7 +353,7 @@ func uploadPictures(formatter *render.Render) http.HandlerFunc {
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
 		selector := bson.M{"_id": property_id}
-		update := bson.M{"$set": bson.M{"image": result.Location}}
+		update := bson.M{"$set": bson.M{"image": "http://dwz5dvieyr9hn.cloudfront.net/"+handler.Filename}}
 		err = c.Update(selector, update)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)

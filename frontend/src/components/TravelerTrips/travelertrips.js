@@ -105,7 +105,7 @@ class travelertrips extends Component
             TravelerName : localStorage.getItem("firstname"),
             Comment : comment
         }
-        axios.post(`${PROPERTY_URL}/${propertyId}/review`,data)
+        axios.post(`${PROPERTY_URL}/review/${propertyId}`,data)
             .then(response => {
                 if(response.status===200){
                     // TODO : VINAY
