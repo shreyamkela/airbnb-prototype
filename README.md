@@ -59,3 +59,50 @@ Airbnb application is a prototype of the original Airbnb website where users can
 ![Architecture Diagram](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/Photos/AWS%20Network%20Diagram.png)
 
 
+### AKF Scaling cube
+
+- X-axis scaling : The X-axis Scale has been addressed by replicating each microservice across multiple instances which 	increases the throughput and helps in avoiding failures.
+
+- Y-axis Scaling: By dividing each service based on their functions and deploying it to separate AWS accounts, our application also addresses the Y-axis scaling.
+
+- Z-axis Scaling : The NoSql database i.e MongoDB has been sharded to address the Z-axis Scale
+
+### Contributions
+
+- Kavina:
+	- Concentrated on the backend go routes for the user dashboard
+    - Worked on designing the owner and traveler's dashboard pages and traveler update profile page
+    - Worked to create a CI/CD pipeline on AWS with CodeBuild, ECS cluster, ECR and load balancer
+    - Created mongodb sharding on the dashboard nosql database cluster for horizontal scalability
+    - Documentation of the hackathon project
+
+- Darshil
+	- Worked on UI related to posting of property and search results
+	- Developed the whole property microservice.
+	- Worked on configuring CDN with S3.
+	- Worked on codebuild to trigger building of docker image on the event of pushing on master branch.
+	- worked on creating mongoshards for property microservice.
+
+- Shreyam
+	- Developed the end-to-end flow of the User Registration / Login micro service. 
+	- Built the Go backend for Login and Sign Up with password hashing using Bcrypt.  
+	- Created the Login and Signup web pages for travelers and owners, using ReactJS. 
+	- Deployed the frontend of the Airbnb app on Heroku with CI/CD.  
+	- Worked with the team in deploying the Login micro service to Amazon managed Kubernetes cluster - EKS. 
+	- Configured an Amazon API Gateway as a single entry point for the frontend to connect to the different load balancers of the 4 micro services.
+
+- Vinay
+	- Implemented the Booking microservice. It consists of various operations on adding, fetching, deleting and updating the booking.
+	- Implemented MongoDB sharding on AWS for booking microservice.
+	- Inputs about the architecture of the project.
+	- Worked on front modules like payment and pages that included operations on booking microservice.
+ 	- Implemented deployment of docker images of booking microservice on AWS EKS.
+
+### Documentation links
+
+[EKS cluster deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/eks-cluster-deployment.md)
+
+[AWS ECS CI/CD deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/aws-ecs-ci-cd-deplyment.md)
+
+
+

@@ -80,7 +80,7 @@ class Ownerdashboard extends Component
         {
             view = this.state.property_information.map(property => {
                 // TODO : see how Bookings array is stored in the property object
-                if(property.bookings > 0){
+                if(property.bookings.length > 0){
                     bookings_view = property.bookings.map(booking => {
                         return (
                             <div>
