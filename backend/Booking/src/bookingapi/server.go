@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"math/rand"
 	"net/http"
-	"strconv"
 	"time"
 
 	// "encoding/json"
@@ -21,7 +20,7 @@ import (
 )
 
 // Mongodb config
-var mongodb_server = "10.0.1.232:27017"
+var mongodb_server = "52.13.14.228:27017"
 var mongodb_database = "cmpe281_airbnb"
 var mongodb_collection_booking = "user_booking"
 
@@ -75,7 +74,7 @@ func BookingPropertyReviewHandler(formatter *render.Render) http.HandlerFunc {
 		defer session.Close()
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_booking)
-		var resultFind Booking
+		var resultFind bson.M
 		errFind := c.Find(bson.M{"id": booking.Id}).One(&resultFind)
 		if errFind != nil {
 			fmt.Println("Not able to find the booking!")
@@ -83,7 +82,7 @@ func BookingPropertyReviewHandler(formatter *render.Render) http.HandlerFunc {
 			return
 		} else {
 			comment := booking.Comment
-			filter := bson.M{"id": booking.Id}
+			filter := bson.M{"_id": resultFind["_id"]}
 			updated := bson.M{"$set": bson.M{"comment": comment}}
 			err = c.Update(filter, updated)
 			if err != nil {
@@ -109,7 +108,8 @@ func BookingPostHandler(formatter *render.Render) http.HandlerFunc {
 		var booking Booking
 		_ = json.NewDecoder(req.Body).Decode(&booking)
 		rand.Seed(time.Now().UnixNano())
-		booking.Id = strconv.Itoa(rand.Intn(100000000000))
+		// booking.Id = strconv.Itoa(rand.Intn(100000000000))
+		booking.Id = bson.NewObjectId().Hex()
 		fmt.Println("Wohoo: ", booking)
 		// count, err := c.Find(bson.M{"Id": booking.Id}).Limit(1).Count()
 		var resultFind bson.M
