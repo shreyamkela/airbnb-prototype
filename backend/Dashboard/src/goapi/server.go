@@ -54,7 +54,7 @@ func setupResponse(w *http.ResponseWriter, req *http.Request) {
 // API Ping Handler (GET call)
 func pingHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		formatter.JSON(w, http.StatusOK, struct{ Test string }{"API version 1.0 alive!"})
+		formatter.JSON(w, http.StatusOK, struct{ Test string }{"API version 1.00000000 alive!"})
 	}
 }
 
@@ -194,7 +194,8 @@ func travelerBookingUpdateHandler(formatter *render.Render) http.HandlerFunc {
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
 		var result User_details
-		err1 := c.Find(bson.M{"userid" : traveler_booking_ids.TravelerId}).One(&result)
+		// err1 := c.Find(bson.M{"userid" : traveler_booking_ids.TravelerId}).One(&result)
+		err1 := c.Find(bson.M{"_id" : traveler_booking_ids.TravelerId}).One(&result)
 		if err1 != nil {
 			fmt.Println("No such user exists")
 			panic(err)
