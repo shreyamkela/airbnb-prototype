@@ -32,7 +32,7 @@ class SideNavbar extends Component
                             <a class="sidebaritems" href="/listproperty/price">Pricing</a>
                         </li>
                         <li class="itemlist">
-                            <a class="sidebaritems" href="/listproperty/photos">Photos</a>
+                            <a class="sidebaritems" href="/listproperty/photos">Almost Done</a>
                         </li>
                     </ul>
                 </div>

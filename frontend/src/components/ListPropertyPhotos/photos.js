@@ -68,36 +68,20 @@ class photos extends Component
             .then(response => {
                 if(response.status === 200){
                     var propertyId = response.data
-                    let formData = new FormData();
-                    formData.append('jpg', this.state.selectedFile);
-                    axios.post(`${PROPERTY_URL}/upload/${propertyId}`,formData)
-                        .then(response2 => {
-                            if(response2.status === 200){
-                                console.log("Property Posted Successfully")
-                                this.setState({
-                                    flag:true
-                                })
-                                swal("Congratulations", "Property posted successfully", "success");
-                                localStorage.removeItem("country")
-                                localStorage.removeItem("address")
-                                localStorage.removeItem("city")
-                                localStorage.removeItem("state")
-                                localStorage.removeItem("zipcode")
-                                localStorage.removeItem("propertyname")
-                                localStorage.removeItem("propertytype")
-                                localStorage.removeItem("bedrooms")
-                                localStorage.removeItem("bathrooms")
-                                localStorage.removeItem("accomodates")
-                                localStorage.removeItem("availableStart")
-                                localStorage.removeItem("availableEnd")
-                                localStorage.removeItem("pricePerNight")
-                            }
-                        })
-                        //#TODO:
-                        //For Kavina:
-                        // access propertyId that is initialized above and add it to the owner's dashboard. 
-                        
-                        //updating the owner dashboard database and adding this property under the owner
+                    swal("Congratulations", "Property posted successfully", "success");
+                            localStorage.removeItem("country")
+                            localStorage.removeItem("address")
+                            localStorage.removeItem("city")
+                            localStorage.removeItem("state")
+                            localStorage.removeItem("zipcode")
+                            localStorage.removeItem("propertyname")
+                            localStorage.removeItem("propertytype")
+                            localStorage.removeItem("bedrooms")
+                            localStorage.removeItem("bathrooms")
+                            localStorage.removeItem("accomodates")
+                            localStorage.removeItem("availableStart")
+                            localStorage.removeItem("availableEnd")
+                            localStorage.removeItem("pricePerNight")
                         const owner_update_data = {
                             "OwnerId" : localStorage.getItem("userId"),
                             "PropertyId" : propertyId
@@ -250,23 +234,11 @@ class photos extends Component
                         <div class="container">
                             <div class="formbody">
                                 <br/>
-                                <h3 class="heading4">Add photos of your property</h3><hr/>
+                                <h3 class="heading4">You made it.</h3><hr/>
                                 <p class="text">
-                                    Showcase your property’s best features (no pets or people, please).
+                                    Submit the request to showcase your property to the world
                                 </p>
-                                <div class="text-center photouploadbox">
-                                    {/* {<form>
-                                    <label class="file-upload-button">
-                                        Select photos to upload
-                                        <input type="file" id="filename" name="selectedFile" onChange = {this.fileChangeHandler}/><br/>
-                                    </label>
-                                    </form>} */}
-                                    {uploadForm}
-                                </div>
                                 <center>    
-                                    <button class="btn btn-primary save-button" onClick={this.BackButton}>
-                                        <span>Back</span>
-                                    </button>
                                     <button class="btn btn-primary save-button" onClick={this.SubmitButton}>
                                         <span>Submit</span>
                                     </button>
