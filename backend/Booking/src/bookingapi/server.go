@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"math/rand"
 	"net/http"
 	"strconv"
@@ -22,7 +21,7 @@ import (
 )
 
 // Mongodb config
-var mongodb_server = "127.0.0.1:27017"
+var mongodb_server = "10.0.1.232:27017"
 var mongodb_database = "cmpe281_airbnb"
 var mongodb_collection_booking = "user_booking"
 
@@ -46,10 +45,10 @@ func NewServer() *negroni.Negroni {
 func initRoutes(mx *mux.Router, formatter *render.Render) {
 	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/Booking", BookingPostHandler(formatter)).Methods("POST")
-
+	mx.HandleFunc("/Booking/{id}", BookingDeleteHandler(formatter)).Methods("DELETE")
 	mx.HandleFunc("/Booking/{id}", BookingGetHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/BookingByTraveller/{traveller_id}", BookingTravellerGetHandler(formatter)).Methods("GET")
-
+	mx.HandleFunc("/BookingByProperty/{property_id}", BookingPropertyGetHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/BookingReview", BookingPropertyReviewHandler(formatter)).Methods("PUT")
 
 }
@@ -89,7 +88,7 @@ func BookingPropertyReviewHandler(formatter *render.Render) http.HandlerFunc {
 			err = c.Update(filter, updated)
 			if err != nil {
 				fmt.Println("Error while updating")
-				log.Fatal(err)
+				panic(err)
 			}
 		}
 		fmt.Println(" Booking details updated")
@@ -185,6 +184,62 @@ func BookingTravellerGetHandler(formatter *render.Render) http.HandlerFunc {
 		} else {
 			fmt.Println("Booking Details : \n", resultFind)
 			formatter.JSON(w, http.StatusOK, resultFind)
+		}
+	}
+}
+
+// API to get bookings based on property-id
+func BookingPropertyGetHandler(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		params := mux.Vars(req)
+		var propertyID string = params["property_id"]
+		fmt.Println("Params property-id: ", params)
+		session, err := mgo.Dial(mongodb_server)
+		if err != nil {
+			// panic(err)
+			fmt.Println(err)
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodb_database).C(mongodb_collection_booking)
+		var resultFind []Booking
+		errFind := c.Find(bson.M{"property_id": propertyID}).All(&resultFind)
+		if errFind != nil || len(resultFind) == 0 {
+			fmt.Println("Not able to find the booking on property ID!")
+			formatter.JSON(w, http.StatusOK, resultFind)
+			// formatter.JSON(w, http.StatusForbidden, struct{ Message string }{"Not able to find the booking on property ID!"})
+			return
+		} else {
+			fmt.Println("Booking Details : \n", resultFind)
+			formatter.JSON(w, http.StatusOK, resultFind)
+		}
+	}
+}
+
+// API to delete a booking
+func BookingDeleteHandler(formatter *render.Render) http.HandlerFunc {
+	return func(w http.ResponseWriter, req *http.Request) {
+		params := mux.Vars(req)
+		var bookingID string = params["id"]
+		// fmt.Println(params)
+		fmt.Println("Booking ID: ", bookingID)
+		session, err := mgo.Dial(mongodb_server)
+		if err != nil {
+			panic(err)
+		}
+		defer session.Close()
+		session.SetMode(mgo.Monotonic, true)
+		c := session.DB(mongodb_database).C(mongodb_collection_booking)
+		var resultFind bson.M
+		errFind := c.Find(bson.M{"id": bookingID}).One(&resultFind)
+		if errFind != nil {
+			fmt.Println("Not able to find the booking!")
+			formatter.JSON(w, http.StatusForbidden, struct{ Message string }{"Not able to find the booking!"})
+			return
+		} else {
+			fmt.Println("Booking exists with this ID!")
+			err = c.Remove(bson.M{"id": bookingID})
+			formatter.JSON(w, http.StatusOK, struct{ Message string }{"Booking cancelled!"})
 		}
 	}
 }
