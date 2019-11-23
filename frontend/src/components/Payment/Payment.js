@@ -47,7 +47,7 @@ class Payment extends Component {
                 }
 
 
-                Axios.post(`${PROPERTY_URL}/${this.state.property_id}/book`, data)
+                Axios.post(`${PROPERTY_URL}/book/${this.state.property_id}`, data)
                     .then(response => {
                         console.log("Status Code : ", response.status);
                         if (response.status === 200) {

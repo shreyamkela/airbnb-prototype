@@ -1,7 +1,7 @@
 package main
 
 type User_details struct {
-	UserId string
+	UserId string `bson:"_id"`
 	Firstname string
 	Lastname string
 	Address string

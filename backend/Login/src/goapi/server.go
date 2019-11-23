@@ -8,9 +8,15 @@ import (
 	"time"
 
 	"golang.org/x/crypto/bcrypt"
+	"gopkg.in/mgo.v2/bson"
 )
 
-var frontendURI string = "http://localhost:3000"
+var frontendURI string = "http://airbnb-cmpe281.herokuapp.com"
+
+func Ping(response http.ResponseWriter, request *http.Request) {
+	fmt.Println("/signup POST")
+	response.Write([]byte(`{"message":"Ping Successful!"}`))
+}
 
 func PutUser(response http.ResponseWriter, request *http.Request) {
 	fmt.Println("/signup POST")
@@ -36,14 +42,20 @@ func PutUser(response http.ResponseWriter, request *http.Request) {
 	} else {
 		cost := bcrypt.DefaultCost
 		hash, err := bcrypt.GenerateFromPassword([]byte(user.Password), cost)
+
 		if err != nil {
 			response.WriteHeader(http.StatusBadRequest)
 			response.Write([]byte(`{"message":"` + err.Error() + `"}`))
 			return
 		}
+		fmt.Println("/1")
 
 		userEncrypted := UserEncrypted{user.ID, user.Email, hash, user.Username, user.Type}
+		fmt.Println("/2")
+
 		result, _ := collection.InsertOne(ctx, userEncrypted)
+		fmt.Println(result.InsertedID)
+
 		json.NewEncoder(response).Encode(result.InsertedID)
 	}
 }
@@ -86,27 +98,27 @@ func GetUser(response http.ResponseWriter, request *http.Request) {
 	json.NewEncoder(response).Encode(userFound.ID)
 }
 
-//func GetUsers(response http.ResponseWriter, request *http.Request) {
-//	response.Header().Add("content-type", "application/json")
-//	var users []User
-//	collection := client.Database("cmpe281").Collection("users")
-//	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
-//	cursor, err := collection.Find(ctx, bson.M{})
-//	if err != nil {
-//		response.WriteHeader(http.StatusInternalServerError)
-//		response.Write([]byte(`{"message":"` + err.Error() + `"}`))
-//		return
-//	}
-//	defer cursor.Close(ctx)
-//	for cursor.Next(ctx) {
-//		var user User
-//		cursor.Decode(&user)
-//		users = append(users, user)
-//	}
-//	if err := cursor.Err(); err != nil {
-//		response.WriteHeader(http.StatusInternalServerError)
-//		response.Write([]byte(`{"message":"` + err.Error() + `"}`))
-//		return
-//	}
-//	json.NewEncoder(response).Encode(users)
-//}
+func GetUsers(response http.ResponseWriter, request *http.Request) {
+	response.Header().Add("content-type", "application/json")
+	var users []User
+	collection := client.Database("cmpe281").Collection("users")
+	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
+	cursor, err := collection.Find(ctx, bson.M{})
+	if err != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		response.Write([]byte(`{"message":"` + err.Error() + `"}`))
+		return
+	}
+	defer cursor.Close(ctx)
+	for cursor.Next(ctx) {
+		var user User
+		cursor.Decode(&user)
+		users = append(users, user)
+	}
+	if err := cursor.Err(); err != nil {
+		response.WriteHeader(http.StatusInternalServerError)
+		response.Write([]byte(`{"message":"` + err.Error() + `"}`))
+		return
+	}
+	json.NewEncoder(response).Encode(users)
+}

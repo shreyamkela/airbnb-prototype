@@ -106,7 +106,7 @@ class searchresults extends Component
                                 <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                                     <div class="carousel-inner">
                                         <div class="carousel-item active">
-                                            <img src = "https://cmpe281-propertyimages.s3-us-west-2.amazonaws.com/airbnb.png" height="300" width="420"/>
+                                            <img src = "http://dwz5dvieyr9hn.cloudfront.net/airbnb.png" height="300" width="420"/>
                                         </div>
                                     </div>
                                 </div>
