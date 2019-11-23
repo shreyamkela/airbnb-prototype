@@ -17,7 +17,6 @@ phases:
       - ls
       - echo $REPOSITORY_URI
       - docker build -t $REPOSITORY_URI:latest .
-      - docker tag $REPOSITORY_URI:latest
   post_build:
     commands:
       - echo Build completed on `date`
