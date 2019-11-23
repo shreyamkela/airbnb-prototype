@@ -19,9 +19,22 @@ Airbnb application is a prototype of the original Airbnb website where users can
 ### Project Modules
 
 (1) User Registration / Login Service - This service handles the sign up and login of user on airbnb app. Hashed passwords are stored using Bcrypt.
+
 (2) Dashboard Service - This microservice takes care of the profile updation of the user on the website. Moreover it handles the traveler and owner dashboard.
+
 (3) Property Service - This service handles the creation of a new property along with posting pictures, viewing of the created property and searching a property.
+
 (4) Booking Service - This service looks after the booking part of the property and updating the traveler and owner dashboard accordingly.
+
+### Work breakdown
+
+| Module                             | Name      |
+|------------------------------------|-----------|
+|User Registration / Login           | Shreyam   |
+|Dashboard Service       			 | Kavina    |
+|Property Service                    | Darshil   |
+|Booking Service                     | Vinay     |
+
 
 ### Deployment details
 
@@ -29,12 +42,17 @@ Airbnb application is a prototype of the original Airbnb website where users can
 
 	Frontend in developed using ReactJS, HTML, CSS, and Bootstrap. The web app is deployed on Heroku with CI/CD. Therefore, whenever a code change is pushed to the master branch of the repo, the changed code is automatically deployed and it reflects on the frontend.
 
+	Frontend URL : https://airbnb-project-cmpe281.herokuapp.com/homepage
+
 - **Backend**
 
 	Login Service : It is deployed on the AWS managed Kubernetes cluster - EKS, having two worker nodes with two pods in each of them.
+
 	Dashboard Service : This backend service is deployed on AWS ECS. There is a network load balancer in front of the three ECS tasks. Moreover, the whole process is automated using the CI/CD pipeline with AWS services such as CodeBuild and ECR.
+
 	Property Service : This is deployed on AWS ECS having three tasks kept behind a network load balancer. The docker image is pushed to Elastic Container Registry (ECR).
-	Booking Service : It is also deployed on the AWS managed Kubernetes cluster - EKS, having two worker nodes with two pods in each of them.
+	
+	Booking Service : It is deployed on the AWS managed Kubernetes cluster - EKS, having two worker nodes with two pods in each of them.
 
 ### Architecture diagram
 
