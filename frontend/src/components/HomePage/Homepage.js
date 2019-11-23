@@ -239,7 +239,7 @@ class Homepage extends Component {
                     <br/><br/>
                     <div id="bodyfoot">
                         <div class="row">
-                            <div class="text-center col-md-1 col-md-offset-1"></div>
+                        <div class="text-center col-md-offset-1 marginLeft"></div>
                             <div class="my-class text-center col-md-3 col-md-offset-1">
                                 <strong class="mainlinks">Your whole vacation starts here</strong><br/>
                                 <span class="mainlinks">Choose a rental from the world's best selection</span>

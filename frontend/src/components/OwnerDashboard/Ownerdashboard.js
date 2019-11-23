@@ -46,7 +46,7 @@ class Ownerdashboard extends Component
                         // TODO FOR DARSHIL
                         // update the URL below based on the backend route for getting property details for a property id
                         for(let i=0; i<response.data.PropertyId.length; i++){
-                            axios.get(`${PROPERTY_URL}/find/` + response.data.PropertyId[0])
+                            axios.get(`${PROPERTY_URL}/find/` + response.data.PropertyId[i])
                                 .then((res) => {
                                     console.log("Got the details of the property : " + JSON.stringify(res.data))
                                     all_properties.push(res.data)
