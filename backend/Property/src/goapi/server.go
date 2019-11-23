@@ -25,7 +25,7 @@ import (
 )
 
 // Mongodb config
-var mongodb_server = "mongodb://admin:admin_123@ds335668.mlab.com:35668/cmpe281"
+var mongodb_server = "10.0.1.30:27017"
 var mongodb_database = "cmpe281"
 var mongodb_collection_dashboard = "property"
 
