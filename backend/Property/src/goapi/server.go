@@ -61,7 +61,7 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 // API Ping Handler (GET call)
 func pingHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		formatter.JSON(w, http.StatusOK, struct{ Test string }{"API version 2.0 alive!"})
+		formatter.JSON(w, http.StatusOK, struct{ Test string }{"API version 1.0 alive!"})
 	}
 }
 
@@ -73,7 +73,7 @@ func postProperty(formatter *render.Render) http.HandlerFunc {
 		fmt.Println("Name of property which is to be posted is: ", property.StartDate)
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
-			fmt.Println("Error while connecting to database")
+			formatter.JSON(w, http.StatusInternalServerError, err)
 			return
 		}
 		start := property.StartDate
@@ -99,6 +99,7 @@ func postProperty(formatter *render.Render) http.HandlerFunc {
 		err = c.Find(bson.M{"name": property.Name}).All(&properties)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		if len(properties) > 0 {
 			formatter.JSON(w, http.StatusInternalServerError, "Property Name Already exists")
@@ -107,6 +108,7 @@ func postProperty(formatter *render.Render) http.HandlerFunc {
 			err = c.Insert(property)
 			if err != nil {
 				formatter.JSON(w, http.StatusInternalServerError, err)
+				return
 			}
 			fmt.Println("InsertedID is:", property.PropertyID)
 			fmt.Println("result is:", result)
@@ -123,14 +125,16 @@ func findPropertyById(formatter *render.Render) http.HandlerFunc {
 		fmt.Println("Property ID to get is: ", property_id)
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
-			panic(err)
+			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
 		var result bson.M
 		err = c.Find(bson.M{"_id": property_id}).One(&result)
 		if err != nil {
-			log.Fatal(err)
+			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		fmt.Println("Property data:", result)
 		formatter.JSON(w, http.StatusOK, result)
@@ -145,6 +149,7 @@ func findPropertyByOwnerId(formatter *render.Render) http.HandlerFunc {
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
@@ -152,6 +157,7 @@ func findPropertyByOwnerId(formatter *render.Render) http.HandlerFunc {
 		err = c.Find(bson.M{"ownerid": owner_id}).All(&result)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		//fmt.Println("Property data:", result)
 		formatter.JSON(w, http.StatusOK, result)
@@ -166,7 +172,8 @@ func bookProperty(formatter *render.Render) http.HandlerFunc {
 
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
-			formatter.JSON(w, http.StatusInternalServerError, "Server Error")
+			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
@@ -210,6 +217,7 @@ func bookProperty(formatter *render.Render) http.HandlerFunc {
 		err = c.Update(selector, update)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 
 		// //updating for pushing new booking
@@ -230,7 +238,8 @@ func searchProperty(formatter *render.Render) http.HandlerFunc {
 
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
-			formatter.JSON(w, http.StatusInternalServerError, "Server Error")
+			formatter.JSON(w, http.StatusInternalServerError,err)
+			return
 		}
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
@@ -256,7 +265,8 @@ func searchProperty(formatter *render.Render) http.HandlerFunc {
 		var result []Property
 		err = c.Find(bson.M{"accomodates": bson.M{"$gte": searchCriteria.Accomodates}, "startdate": bson.M{"$lte": searchCriteria.StartDate}, "enddate": bson.M{"$gte": searchCriteria.EndDate}, "city": searchCriteria.Location}).All(&result)
 		if err != nil {
-			formatter.JSON(w, http.StatusInternalServerError, "Server Error")
+			formatter.JSON(w, http.StatusInternalServerError,err)
+			return
 		}
 		var finalResult []Property
 		for i := 0; i < len(result); i = i + 1 {
@@ -288,7 +298,8 @@ func reviewProperty(formatter *render.Render) http.HandlerFunc {
 
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
-			formatter.JSON(w, http.StatusInternalServerError, "Server Error")
+			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
@@ -304,6 +315,7 @@ func reviewProperty(formatter *render.Render) http.HandlerFunc {
 		err = c.Update(selector, update)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		formatter.JSON(w, http.StatusOK, "Successfully Updated")
 	}
@@ -344,11 +356,14 @@ func uploadPictures(formatter *render.Render) http.HandlerFunc {
 		if err != nil {
 			fmt.Println("error", err)
 			fmt.Println("error while uploading: ", err)
+			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		fmt.Println("After uploading")
 		session, err := mgo.Dial(mongodb_server)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
@@ -357,6 +372,7 @@ func uploadPictures(formatter *render.Render) http.HandlerFunc {
 		err = c.Update(selector, update)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)
+			return
 		}
 
 		formatter.JSON(w, http.StatusOK, "Uploaded to: "+result.Location)
