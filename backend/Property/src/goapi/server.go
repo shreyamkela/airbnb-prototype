@@ -48,7 +48,7 @@ func NewServer() *negroni.Negroni {
 }
 
 func initRoutes(mx *mux.Router, formatter *render.Render) {
-	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
+	mx.HandleFunc("/pingproperty", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/property/", postProperty(formatter)).Methods("POST")
 	mx.HandleFunc("/property/find/{id}", findPropertyById(formatter)).Methods("GET")
 	mx.HandleFunc("/property/owner/{id}", findPropertyByOwnerId(formatter)).Methods("GET")
@@ -278,8 +278,6 @@ func searchProperty(formatter *render.Render) http.HandlerFunc {
 	}
 }
 
-
-
 func reviewProperty(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
 		params := mux.Vars(req)
@@ -308,9 +306,6 @@ func reviewProperty(formatter *render.Render) http.HandlerFunc {
 		formatter.JSON(w, http.StatusOK, "Successfully Updated")
 	}
 }
-
-
-
 
 //ref: https://gist.github.com/ehernandez-xk/e151b69f5734c8e2d7e7347d79966bb9
 //ref: https://medium.com/@yogeshdarji99/steps-to-install-awscli-on-mac-5bad783483a
@@ -353,7 +348,7 @@ func uploadPictures(formatter *render.Render) http.HandlerFunc {
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
 		selector := bson.M{"_id": property_id}
-		update := bson.M{"$set": bson.M{"image": "http://dwz5dvieyr9hn.cloudfront.net/"+handler.Filename}}
+		update := bson.M{"$set": bson.M{"image": "http://dwz5dvieyr9hn.cloudfront.net/" + handler.Filename}}
 		err = c.Update(selector, update)
 		if err != nil {
 			formatter.JSON(w, http.StatusInternalServerError, err)

@@ -81,11 +81,11 @@ class Ownerdashboard extends Component
             view = this.state.property_information.map(property => {
                 // TODO : see how Bookings array is stored in the property object
                 if(property.bookings > 0){
-                    bookings_view = property.Bookings.map(booking => {
+                    bookings_view = property.bookings.map(booking => {
                         return (
                             <div>
                                 <div class="property_detials">
-                                    <p>Booked by - {booking.TravelerId}</p>
+                                    <p>Booked by - {booking.travelername}</p>
                                 </div>
                             </div>
                         )
