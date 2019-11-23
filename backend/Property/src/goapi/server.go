@@ -61,7 +61,7 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 // API Ping Handler (GET call)
 func pingHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		formatter.JSON(w, http.StatusOK, struct{ Test string }{"Version x.0 is alive!"})
+		formatter.JSON(w, http.StatusOK, struct{ Test string }{"Version 3.0 is alive!"})
 	}
 }
 
