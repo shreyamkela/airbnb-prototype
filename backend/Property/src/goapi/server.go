@@ -48,7 +48,7 @@ func NewServer() *negroni.Negroni {
 }
 
 func initRoutes(mx *mux.Router, formatter *render.Render) {
-	mx.HandleFunc("/ping", pingHandler(formatter)).Methods("GET")
+	mx.HandleFunc("/pingproperty", pingHandler(formatter)).Methods("GET")
 	mx.HandleFunc("/property/", postProperty(formatter)).Methods("POST")
 	mx.HandleFunc("/property/find/{id}", findPropertyById(formatter)).Methods("GET")
 	mx.HandleFunc("/property/owner/{id}", findPropertyByOwnerId(formatter)).Methods("GET")
@@ -61,7 +61,7 @@ func initRoutes(mx *mux.Router, formatter *render.Render) {
 // API Ping Handler (GET call)
 func pingHandler(formatter *render.Render) http.HandlerFunc {
 	return func(w http.ResponseWriter, req *http.Request) {
-		formatter.JSON(w, http.StatusOK, struct{ Test string }{"New version up!"})
+		formatter.JSON(w, http.StatusOK, struct{ Test string }{"Version x.0 is alive!"})
 	}
 }
 
