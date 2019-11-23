@@ -19,9 +19,22 @@ Airbnb application is the clone of the original Airbnb app where users can regis
 ### Project Modules
 
 (1) User Registration/ Login Service - This service handles the sign up and login of the user on airbnb website.
+
 (2) Dashboard Service - This microservice takes care of the profile updation of the user on the website. Moreover it handles the traveler and owner dashboard.
+
 (3) Property Service - This service handles the creation of a new property along with posting pictures, viewing of the created property and searching a property.
+
 (4) Booking Service - This service looks after the booking part of the property and updating the traveler and owner dashboard accordingly.
+
+### Work breakdown
+
+| Module                             | Name      |
+|------------------------------------|-----------|
+|User Registration / Login           | Shreyam   |
+|Dashboard Service       			 | Kavina    |
+|Property Service                    | Darshil   |
+|Booking Service                     | Vinay     |
+
 
 ### Deployment details
 
@@ -29,11 +42,16 @@ Airbnb application is the clone of the original Airbnb app where users can regis
 
 	Frontend in developed using reactjs, html, css, bootstrap. The frontend web application is deployed on Heroku and CI/CD has also been applied on it. Thus when the code is pushed to the repository, the changed code is automatically reflected.
 
+	Frontend URL : https://airbnb-project-cmpe281.herokuapp.com/homepage
+
 - **Backend**
 
 	Login Service : It is deployed on the AWS managed kubernetes cluster - EKS having two worker nodes with two pods in each of them.
+
 	Dashboard Service : This backend is deployed on AWS ECS. There is a network load balancer in front of the three ECS tasks. Moreover, the whole process is automated using the CI/CD pipeline with AWS services such as CodeBuild and ECR.
+
 	Property Service : This is deployed on AWS ECS having three tasks kept behind a network load balancer. The docker image is pushed to Elastic Container Registry (ECR).
+
 	Booking Service : It is deployed on the AWS managed kubernetes cluster - EKS having two worker nodes with two pods in each of them.
 
 ### Architecture diagram
