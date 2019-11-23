@@ -1,9 +1,14 @@
+# Node.js
+node_modules/
+*/package-lock.json
+
 # Binaries for programs and plugins
 *.exe
 *.exe~
 *.dll
 *.so
 *.dylib
+.vscode
 
 .DS_Store
 
@@ -20,4 +25,3 @@
 *.out
 */bin
 */pkg
-

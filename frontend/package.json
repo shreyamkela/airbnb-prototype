@@ -17,7 +17,8 @@
     "react-scripts": "1.1.5",
     "redux": "^4.0.0",
     "redux-form": "^7.4.2",
-    "redux-promise": "^0.6.0"
+    "redux-promise": "^0.6.0",
+    "sweetalert": "^2.1.2"
   },
   "scripts": {
     "start": "react-scripts start",
