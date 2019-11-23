@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: goapp
+  name: goapp
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      run: goapp
+  template:
+    metadata:
+      labels:
+        run: goapp
+    spec:
+      containers:
+      - image: gcr.io/idyllic-nova-259622/goapp:latest
+        name: goapp
+        ports:
+        - containerPort: 8080

@@ -29,7 +29,7 @@ class OwnerNavbar extends Component
                 <nav class="navbar navbar-default navbar-expand-sm" id="nav">
                         <div class="container-fluid">
                             <div class="navbar-header">
-                                    <a href="http://localhost:3000/listproperty/welcome" class="navbar-brand">
+                                    <a href="/listproperty/welcome" class="navbar-brand">
                                         <p class="heading1">Airbnb</p>
                                     </a>
                             </div>
@@ -41,7 +41,7 @@ class OwnerNavbar extends Component
                                         <a href="#" class="dropdown-toggle mainlinks1" data-toggle="dropdown"> My Account <span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-right mymenu">
                                             <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Account Settings</a></li>
-                                            <li class="listitems"><a class="dropdown-item menulinks1" href="http://localhost:3000/listproperty/ownerdashboard" role="menu">Property Details</a></li>
+                                            <li class="listitems"><a class="dropdown-item menulinks1" href="/listproperty/ownerdashboard" role="menu">Property Details</a></li>
                                             {/* <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Logout</a></li> */}
                                             <li class="listitems"><Link to="/homepage" onClick = {this.handleLogout} class="dropdown-item menulinks1" role="menu">Logout</Link></li>
                                         </ul>

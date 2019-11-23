@@ -1,4 +1,4 @@
-export const DASHBOARD_URL = "http://localhost:3001"
-export const PROPERTY_URL = "http://localhost:8080/property"
-export const BOOKING_URL = "http://localhost:8080"
-export const LOGIN_URL = "http://localhost:3001"
+export const DASHBOARD_URL = "https://9ohji46qel.execute-api.us-east-1.amazonaws.com/prod"
+export const PROPERTY_URL = DASHBOARD_URL + "/property"
+export const BOOKING_URL = DASHBOARD_URL
+export const LOGIN_URL = DASHBOARD_URL

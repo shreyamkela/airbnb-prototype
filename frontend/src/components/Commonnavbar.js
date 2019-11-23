@@ -28,7 +28,7 @@ class Commonnavbar extends Component
                         <div class="container-fluid">
 
                             <div class="navbar-header">
-                                    <a href="http://localhost:3000/homepage" class="navbar-brand">
+                                    <a href="/homepage" class="navbar-brand">
                                         <p class="heading1">Airbnb</p>
                                     </a>
                             </div>

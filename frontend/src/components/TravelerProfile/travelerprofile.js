@@ -115,7 +115,7 @@ class travelerprofile extends Component
                     <nav class="navbar navbar-default navbar-expand-sm" id="nav">
                         <div class="container-fluid">
                             <div class="navbar-header">
-                                    <a href="http://localhost:3000/homepage" class="navbar-brand">
+                                    <a href="/homepage" class="navbar-brand">
                                         <p class="heading1">Airbnb</p>
                                     </a>
                             </div>
@@ -128,8 +128,8 @@ class travelerprofile extends Component
                                         <a href="#" class="dropdown-toggle mainlink1" data-toggle="dropdown"> {this.state.setUsername} <span class="caret"></span></a>
                                         <ul class="dropdown-menu dropdown-menu-right mymenu">
                                             <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Inbox</a></li>
-                                            <li class="listitems"><a class="dropdown-item menulinks1" href="http://localhost:3000/travelertrips" role="menu">My trips</a></li>
-                                            <li class="listitems"><a class="dropdown-item menulinks1" href="http://localhost:3000/travelerprofile" role="menu">My profile</a></li>
+                                            <li class="listitems"><a class="dropdown-item menulinks1" href="/travelertrips" role="menu">My trips</a></li>
+                                            <li class="listitems"><a class="dropdown-item menulinks1" href="/travelerprofile" role="menu">My profile</a></li>
                                             <li class="listitems"><a class="dropdown-item menulinks1" href="#" role="menu">Account</a></li>
                                             <li class="listitems"><Link to="/homepage" onClick = {this.handleLogout} class="dropdown-item menulinks1" role="menu">Logout</Link></li>
                                         </ul>

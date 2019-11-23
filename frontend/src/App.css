@@ -3,6 +3,11 @@
   font-size: 40px;
 }
 
+/* .heading1{
+  color:#2a6ebb;
+  font-size: 40px;
+} */
+
 #nav {
   width: 100%;
   white-space: normal;
@@ -16,9 +21,23 @@
   margin-right: 10px;
 }
 
+/* .items1 {
+  display: inline-block;
+  width:initial;
+  white-space: nowrap;
+  margin-right: 10px;
+} */
+
 #ulist{
   display: inline-block;
 }
+
+/* navbar.navbar-default.nav.navbar-nav.navbar-right a {
+  color: #ffffff;
+  text-decoration: none;
+  background-color: transparent;
+  -webkit-text-decoration-skip: objects;
+} */
 
 a:hover{
   text-decoration: none !important;
@@ -27,6 +46,8 @@ a:hover{
 .mainlinks {
   color: white !important;
   text-decoration: none;
+  /* background-color: transparent;
+  -webkit-text-decoration-skip: objects; */
 }
 
 .menulinks {
@@ -36,6 +57,10 @@ a:hover{
   float: left;
   margin: 0px !important;
 }
+
+/* .listitems {
+  margin: 0px !important;
+} */
 
 #mainbodydiv{
   background-image: url("//csvcus.homeaway.com/rsrcs/stab-cms-resources/0.10.30/images/homepage/jumbotron/ptaHpNextHeroImage/large.jpg");

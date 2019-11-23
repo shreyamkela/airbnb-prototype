@@ -23,16 +23,16 @@ class SideNavbar extends Component
                 <div class="col-md-4 col-xs-4 sidebar">
                     <ul class="sidebar-nav">
                         <li class="itemlist">
-                            <a class="sidebaritems" href="http://localhost:3000/listproperty/location">Location</a>
+                            <a class="sidebaritems" href="/listproperty/location">Location</a>
                         </li>
                         <li class="itemlist">
-                            <a class="sidebaritems" href="http://localhost:3000/listproperty/details">Details</a>
+                            <a class="sidebaritems" href="/listproperty/details">Details</a>
                         </li>
                         <li class="itemlist">
-                            <a class="sidebaritems" href="http://localhost:3000/listproperty/price">Pricing</a>
+                            <a class="sidebaritems" href="/listproperty/price">Pricing</a>
                         </li>
                         <li class="itemlist">
-                            <a class="sidebaritems" href="http://localhost:3000/listproperty/photos">Photos</a>
+                            <a class="sidebaritems" href="/listproperty/photos">Photos</a>
                         </li>
                     </ul>
                 </div>
