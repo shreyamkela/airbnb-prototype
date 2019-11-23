@@ -74,8 +74,8 @@ class ownersignup extends Component
             var firstname = this.state.firstname;
             var lastname = this.state.lastname;
 
-            axios.defaults.withCredentials = true;
-            axios.post(`${LOGIN_URL}/signup`,data, {headers: {"Content-Type": "application/x-www-form-urlencoded"}})
+            // axios.defaults.withCredentials = true;
+            axios.post(`${LOGIN_URL}/signup`,data)
                 .then(response => {
                     console.log("Status Code : ",response.status, ", Response.data: ", response.data);
                     if(response.status === 200){
@@ -93,7 +93,7 @@ class ownersignup extends Component
                             "Lastname" : lastname,
                             "UserId" : userId
                         }
-                        axios.defaults.withCredentials = true;
+                        // axios.defaults.withCredentials = true;
                         axios.post(`${DASHBOARD_URL}/travelerprofile`,dataDashboard, {headers: {"Content-Type": "application/x-www-form-urlencoded"}})
                             .then(response => {
                                 console.log("Response data from dashboard goapi : \n" + JSON.stringify(response.data));

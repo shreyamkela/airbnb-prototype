@@ -76,7 +76,7 @@ class travelersignup extends Component
             var lastname = this.state.lastname;
 
             // axios.defaults.withCredentials = true;
-            axios.post(`${LOGIN_URL}/signup`,data, {headers: {"Content-Type": "application/x-www-form-urlencoded"}})
+            axios.post(`${LOGIN_URL}/signup`,data)
                 .then(response => {
                     console.log("Status Code : ",response.status);
                     if(response.status === 200){

@@ -11,7 +11,7 @@ import (
 	"gopkg.in/mgo.v2/bson"
 )
 
-var frontendURI string = "http://airbnb-cmpe281.herokuapp.com"
+var frontendURI string = "https://airbnb-project-cmpe281.herokuapp.com"
 
 func Ping(response http.ResponseWriter, request *http.Request) {
 	fmt.Println("/signup POST")
@@ -48,10 +48,8 @@ func PutUser(response http.ResponseWriter, request *http.Request) {
 			response.Write([]byte(`{"message":"` + err.Error() + `"}`))
 			return
 		}
-		fmt.Println("/1")
 
-		userEncrypted := UserEncrypted{user.ID, user.Email, hash, user.Username, user.Type}
-		fmt.Println("/2")
+		userEncrypted := UserEncrypted{user.ID, user.Email, hash, user.Type}
 
 		result, _ := collection.InsertOne(ctx, userEncrypted)
 		fmt.Println(result.InsertedID)
@@ -65,15 +63,16 @@ func GetUser(response http.ResponseWriter, request *http.Request) {
 	response.Header().Set("Access-Control-Allow-Origin", frontendURI)
 	response.Header().Set("Access-Control-Allow-Credentials", "true")
 	response.Header().Set("Access-Control-Allow-Headers", "Accept, Content-Type, Content-Length, Accept-Encoding, X-CSRF-Token, Authorization, content-type")
-	response.Header().Add("content-type", "application/json")
+	response.Header().Add("Content-Type", "application/json")
 	response.Header().Set("Access-Control-Allow-Methods", "POST, GET, OPTIONS, PUT, DELETE")
+	fmt.Println("User: ", request.Body)
 
 	var user User
 	json.NewDecoder(request.Body).Decode(&user)
-	//fmt.Println("User: ", user)
-	//fmt.Println("Email: ", user.Email)
-	//fmt.Println("Password: ", user.Password)
-	//fmt.Println("Type: ", user.Type)
+	fmt.Println("User: ", user)
+	fmt.Println("Email: ", user.Email)
+	fmt.Println("Password: ", user.Password)
+	fmt.Println("Type: ", user.Type)
 
 	collection := client.Database("cmpe281").Collection("users")
 	ctx, _ := context.WithTimeout(context.Background(), 10*time.Second)
