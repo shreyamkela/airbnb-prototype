@@ -104,5 +104,7 @@ Airbnb application is a prototype of the original Airbnb website where users can
 
 [AWS ECS CI/CD deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/aws-ecs-ci-cd-deplyment.md)
 
+[Heroku CI/CD Deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/heroku-cicd.md)
+
 
 
