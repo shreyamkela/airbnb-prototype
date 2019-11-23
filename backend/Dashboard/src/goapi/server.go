@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	"log"
+	// "log"
 	"net/http"
 	// "reflect"
 	"encoding/json" 
@@ -73,7 +73,8 @@ func travelerProfileGetHandler(formatter *render.Render) http.HandlerFunc {
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
 		var result User_details
-		err = c.Find(bson.M{"userid" : user_id}).One(&result)
+		// err = c.Find(bson.M{"userid" : user_id}).One(&result)
+		err = c.Find(bson.M{"_id" : user_id}).One(&result)
 		if err != nil {
 			fmt.Println("Some error occured while getting the user details of the user : ",user_id)
 			fmt.Println(err)
@@ -100,7 +101,8 @@ func travelerProfileUpdateHandler(formatter *render.Render) http.HandlerFunc {
 		defer session.Close()
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
-		filter := bson.M{"userid" : user_id}
+		// filter := bson.M{"userid" : user_id}
+		filter := bson.M{"_id" : user_id}
 		// change := bson.M{"$set": user_details}
 		change := bson.M{
 			"$set": bson.M{
@@ -113,22 +115,26 @@ func travelerProfileUpdateHandler(formatter *render.Render) http.HandlerFunc {
 			},
 		}
 		var result1 User_details
-		err1 := c.Find(bson.M{"userid" : user_id}).One(&result1)
+		// err1 := c.Find(bson.M{"userid" : user_id}).One(&result1)
+		err1 := c.Find(bson.M{"_id" : user_id}).One(&result1)
 		if err1 != nil {
 			fmt.Println("No entry exists for this user, thus inserting the data")
 			err = c.Insert(user_details)
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println("Error in the insert query in travelerProfileUpdateHandler")
+				panic(err)
 			}
 		} else {
 			fmt.Println("Updating the exsiting entry")
 			err = c.Update(filter, change)
 			if err != nil {
-				log.Fatal(err)
+				fmt.Println("Error in the uodate query in travelerProfileUpdateHandler")
+				panic(err)
 			}
 		}
 		var result User_details
-		err = c.Find(bson.M{"UserId" : user_id}).One(&result)
+		// err = c.Find(bson.M{"UserId" : user_id}).One(&result)
+		err = c.Find(bson.M{"_id" : user_id}).One(&result)
 		fmt.Println("User details updated : \n", result)
 		formatter.JSON(w, http.StatusOK, "User details updated successfully")
 	}
@@ -150,19 +156,21 @@ func ownerPropertyUpdateHandler(formatter *render.Render) http.HandlerFunc {
 		session.SetMode(mgo.Monotonic, true)
 		c := session.DB(mongodb_database).C(mongodb_collection_dashboard)
 		var result1 User_details
-		err1 := c.Find(bson.M{"userid" : owner_property_ids.OwnerId}).One(&result1)
+		// err1 := c.Find(bson.M{"userid" : owner_property_ids.OwnerId}).One(&result1)
+		err1 := c.Find(bson.M{"_id" : owner_property_ids.OwnerId}).One(&result1)
 		if err1 != nil {
 			fmt.Println("No such owner exists")
-			log.Fatal(err1)
+			panic(err)
 		} else {
 			property_ids_array := result1.PropertyId
 			property_ids_array = append(property_ids_array, owner_property_ids.PropertyId)
-			filter := bson.M{"userid" : owner_property_ids.OwnerId}
+			// filter := bson.M{"userid" : owner_property_ids.OwnerId}
+			filter := bson.M{"_id" : owner_property_ids.OwnerId}
 			change := bson.M{"$set": bson.M{"propertyid" : property_ids_array}}
 			err = c.Update(filter, change)
 			if err != nil {
 				fmt.Println("Some error occured in update query")
-				log.Fatal(err)
+				panic(err)
 			}
 		}
 		fmt.Println(" ∆∆∆∆∆∆∆∆ User details updated")
@@ -189,16 +197,17 @@ func travelerBookingUpdateHandler(formatter *render.Render) http.HandlerFunc {
 		err1 := c.Find(bson.M{"userid" : traveler_booking_ids.TravelerId}).One(&result)
 		if err1 != nil {
 			fmt.Println("No such user exists")
-			log.Fatal(err1)
+			panic(err)
 		} else {
 			booking_ids_array := result.BookingId
 			booking_ids_array = append(booking_ids_array, traveler_booking_ids.BookingId)
-			filter := bson.M{"userid" : traveler_booking_ids.TravelerId}
+			// filter := bson.M{"userid" : traveler_booking_ids.TravelerId}
+			filter := bson.M{"_id" : traveler_booking_ids.TravelerId}
 			change := bson.M{"$set": bson.M{"bookingid" : booking_ids_array}}
 			err = c.Update(filter, change)
 			if err != nil {
 				fmt.Println("Some error occured in update query")
-				log.Fatal(err)
+				panic(err)
 			}
 		}
 		fmt.Println(" ∆∆∆∆∆∆∆∆ User details updated")
