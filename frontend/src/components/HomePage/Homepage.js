@@ -185,15 +185,12 @@ class Homepage extends Component {
                                     <a href="#" class="dropdown-toggle mainlinks" data-toggle="dropdown"> <b>Help </b><span class="caret"></span></a>
                                     <ul class="dropdown-menu dropdown-menu-right mymenu">
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#">Visit help center</a></li>
-                                        <li class="dropdown-item listitems">Travelers</li>
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#"> How it works </a></li>
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#"> Security center </a></li>
-                                        <li class="dropdown-item listitems">Homeowners</li>
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#"> How it works </a></li>
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#"> List your property </a></li>
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#"> Community </a></li>
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#"> Discovery Hub </a></li>
-                                        <li class="dropdown-item listitems">Property managers</li>
                                         <li class="listitems"><a class="dropdown-item menulinks" href="#"> List your properties </a></li>
                                     </ul>
                                 </li> 
