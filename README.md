@@ -2,21 +2,15 @@
 
 ## Airbnb - Rent or List a property
 
-### Team members :
-
-Darshil Kapadia
-
-Kavina Desai
-
-Shreyam Kela
-
-Vinay Kovuri
-
 ### Project Description
 
 Airbnb application is a prototype of the original Airbnb website where users can register as owners or travelers. Owners post a particular property by providing specific details such as the location of the property, number of bedrooms, bathrooms, available dates, pictures and so on. If a user registers as a traveler, they can search for a particular property based on the location and the dates of travel. A traveler can book a property by submitting their payment details on the payment page. All the booked trips of the traveler are visible in the Traveler trips page. On the other hand, an owner can view the names of the travelers who booked their property. Moreover, after a booking is successful, a traveler can even review it by giving comments on it.
 
-### Project Modules
+### Architecture
+
+![Architecture Diagram](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/Photos/AWS%20Network%20Diagram.png)
+
+### Microservices
 
 (1) User Registration / Login Service - This service handles the sign up and login of user on airbnb app. Hashed passwords are stored using Bcrypt.
 
@@ -26,23 +20,11 @@ Airbnb application is a prototype of the original Airbnb website where users can
 
 (4) Booking Service - This service looks after the booking part of the property and updating the traveler and owner dashboard accordingly.
 
-### Work breakdown
-
-| Module                             | Name      |
-|------------------------------------|-----------|
-|User Registration / Login           | Shreyam   |
-|Dashboard Service       			 | Kavina    |
-|Property Service                    | Darshil   |
-|Booking Service                     | Vinay     |
-
-
-### Deployment details
+### Deployment description
 
 - **Frontend** : 
 
 	Frontend in developed using ReactJS, HTML, CSS, and Bootstrap. The web app is deployed on Heroku with CI/CD. Therefore, whenever a code change is pushed to the master branch of the repo, the changed code is automatically deployed and it reflects on the frontend.
-
-	Frontend URL : https://airbnb-project-cmpe281.herokuapp.com/homepage
 
 - **Backend**
 
@@ -54,18 +36,26 @@ Airbnb application is a prototype of the original Airbnb website where users can
 	
 	Booking Service : It is deployed on the AWS managed Kubernetes cluster - EKS, having two worker nodes with two pods in each of them.
 
-### Architecture diagram
 
-![Architecture Diagram](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/Photos/AWS%20Network%20Diagram.png)
-
-
-### AKF Scaling cube
+### AKF Scaling Cube utilization
 
 - X-axis scaling : The X-axis Scale has been addressed by replicating each microservice across multiple instances which 	increases the throughput and helps in avoiding failures.
 
 - Y-axis Scaling: By dividing each service based on their functions and deploying it to separate AWS accounts, our application also addresses the Y-axis scaling.
 
 - Z-axis Scaling : The NoSql database i.e MongoDB has been sharded to address the Z-axis Scale
+
+### Deployment Documentation 
+
+[EKS cluster deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/eks-cluster-deployment.md)
+
+[AWS ECS CI/CD deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/aws-ecs-ci-cd-deplyment.md)
+
+[Heroku CI/CD Deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/heroku-cicd.md)
+
+### Team members :
+
+Darshil Kapadia, Kavina Desai, Shreyam Kela, Vinay Kovuri
 
 ### Contributions
 
@@ -97,14 +87,3 @@ Airbnb application is a prototype of the original Airbnb website where users can
 	- Inputs about the architecture of the project.
 	- Worked on front modules like payment and pages that included operations on booking microservice.
  	- Implemented deployment of docker images of booking microservice on AWS EKS.
-
-### Documentation links
-
-[EKS cluster deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/eks-cluster-deployment.md)
-
-[AWS ECS CI/CD deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/aws-ecs-ci-cd-deplyment.md)
-
-[Heroku CI/CD Deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/heroku-cicd.md)
-
-
-
