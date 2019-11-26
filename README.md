@@ -50,9 +50,9 @@ Airbnb app is a prototype of the original Airbnb website where users can arrange
 
 ### Deployment Documentation 
 
-[EKS cluster deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/eks-cluster-deployment.md)
+[EKS Cluster Deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/eks-cluster-deployment.md)
 
-[AWS ECS CI/CD deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/aws-ecs-ci-cd-deplyment.md)
+[AWS ECS CI/CD Deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/aws-ecs-ci-cd-deplyment.md)
 
 [Heroku CI/CD Deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/heroku-cicd.md)
 
