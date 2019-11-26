@@ -1,24 +1,26 @@
-# Team Hackathon Project
+# Airbnb Prototype
 
-## Airbnb - Rent or List a property
 
 ### Project Description
 
-Airbnb application is a prototype of the original Airbnb website where users can register as owners or travelers. Owners post a particular property by providing specific details such as the location of the property, number of bedrooms, bathrooms, available dates, pictures and so on. If a user registers as a traveler, they can search for a particular property based on the location and the dates of travel. A traveler can book a property by submitting their payment details on the payment page. All the booked trips of the traveler are visible in the Traveler trips page. On the other hand, an owner can view the names of the travelers who booked their property. Moreover, after a booking is successful, a traveler can even review it by giving comments on it.
+Airbnb app is a prototype of the original Airbnb website where users can arrange, offer, or book homestays and tourism experiences. Users can register as owners or travelers. Owners post a particular property by providing specific details such as the location of the property, number of bedrooms, bathrooms, available dates, pictures and so on. If a user registers as a traveler, they can search for a particular property based on the location and the dates of travel. A traveler can book a property by submitting their payment details on the payment page. All the booked trips of the traveler are visible in the Traveler trips page. On the other hand, an owner can view the names of the travelers who booked their property. Moreover, after a booking is successful, a traveler can even review it by giving comments on it.
+
 
 ### Architecture
 
 ![Architecture Diagram](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/Photos/AWS%20Network%20Diagram.png)
 
+
 ### Microservices
 
-(1) User Registration / Login Service - This service handles the sign up and login of user on airbnb app. Hashed passwords are stored using Bcrypt.
+- User Service - This service handles the sign up and login of user on airbnb app. Hashed passwords are stored using Bcrypt.
 
-(2) Dashboard Service - This microservice takes care of the profile updation of the user on the website. Moreover it handles the traveler and owner dashboard.
+- Dashboard Service - This microservice takes care of the profile updation of the user on the website. Moreover it handles the traveler and owner dashboard which displays booked trips and properties.
 
-(3) Property Service - This service handles the creation of a new property along with posting pictures, viewing of the created property and searching a property.
+- Property Service - This service handles the creation of a new property along with posting pictures, viewing of the created property and searching a property.
 
-(4) Booking Service - This service looks after the booking part of the property and updating the traveler and owner dashboard accordingly.
+- Booking Service - This service looks after the booking part of the property and updating the traveler and owner dashboard accordingly.
+
 
 ### Deployment description
 
@@ -45,6 +47,7 @@ Airbnb application is a prototype of the original Airbnb website where users can
 
 - Z-axis Scaling : The NoSql database i.e MongoDB has been sharded to address the Z-axis Scale
 
+
 ### Deployment Documentation 
 
 [EKS cluster deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/eks-cluster-deployment.md)
@@ -53,9 +56,11 @@ Airbnb application is a prototype of the original Airbnb website where users can
 
 [Heroku CI/CD Deployment](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/heroku-cicd.md)
 
+
 ### Team members :
 
 Darshil Kapadia, Kavina Desai, Shreyam Kela, Vinay Kovuri
+
 
 ### Contributions
 
