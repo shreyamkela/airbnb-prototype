@@ -3,7 +3,7 @@
 
 ### Project Description
 
-Airbnb project is a prototype of the original Airbnb website where users can arrange, offer, or book homestays and tourism experiences. Users can register as owners or travelers. Owners post a particular property by providing specific details such as the location of the property, number of bedrooms, bathrooms, available dates, pictures and so on. If a user registers as a traveler, they can search for a particular property based on the location and the dates of travel. A traveler can book a property by selecting a property and submitting their payment details on the payment page. All the booked trips of the traveler are visible in the Traveler trips page. On the other hand, an owner can view the details of the travelers who booked their property. Moreover, after a booking/trip is successful, a travelers have the option to add reviews to their selected property.
+Airbnb project is a prototype of the original Airbnb website where users can arrange, offer, or book homestays and tourism experiences. Users can register as owners or travelers. Owners post a particular property by providing specific details such as the location of the property, number of bedrooms, bathrooms, available dates, pictures and so on. If a user registers as a traveler, they can search for a particular property based on the location and the dates of travel. A traveler can book a property by selecting a property and submitting their payment details on the payment page. All the booked trips of the traveler are visible in the Traveler trips page. On the other hand, an owner can view the details of the travelers who booked their property. Additionally, after a booking/trip is successful, a travelers have the option to add reviews to their selected property.
 
 
 ### System Architecture
@@ -39,7 +39,7 @@ Airbnb project is a prototype of the original Airbnb website where users can arr
 - Z-axis Scaling - The NoSQL database i.e the MongoDB is sharded and utilizes query routers and config servers to address the Z-axis scale.
 
 
-### Deployment description
+### Deployment Description
 
 - **Frontend**:
 
