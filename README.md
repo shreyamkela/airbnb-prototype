@@ -3,49 +3,57 @@
 
 ### Project Description
 
-Airbnb app is a prototype of the original Airbnb website where users can arrange, offer, or book homestays and tourism experiences. Users can register as owners or travelers. Owners post a particular property by providing specific details such as the location of the property, number of bedrooms, bathrooms, available dates, pictures and so on. If a user registers as a traveler, they can search for a particular property based on the location and the dates of travel. A traveler can book a property by submitting their payment details on the payment page. All the booked trips of the traveler are visible in the Traveler trips page. On the other hand, an owner can view the names of the travelers who booked their property. Moreover, after a booking is successful, a traveler can even review it by giving comments on it.
+Airbnb project is a prototype of the original Airbnb website where users can arrange, offer, or book homestays and tourism experiences. Users can register as owners or travelers. Owners post a particular property by providing specific details such as the location of the property, number of bedrooms, bathrooms, available dates, pictures and so on. If a user registers as a traveler, they can search for a particular property based on the location and the dates of travel. A traveler can book a property by selecting a property and submitting their payment details on the payment page. All the booked trips of the traveler are visible in the Traveler trips page. On the other hand, an owner can view the details of the travelers who booked their property. Moreover, after a booking/trip is successful, a travelers have the option to add reviews to their selected property.
 
 
-### Architecture
+### System Architecture
 
 ![Architecture Diagram](https://github.com/nguyensjsu/fa19-281-tech-phantoms/blob/master/Photos/AWS%20Network%20Diagram.png)
 
 
+### Technologies Utilized:
+
+- UI: React, HTML5, CSS3, Bootstrap, JavaScript.
+- Server: Go, REST API, BSON, JSON, Bcrypt.
+- Infrastructure: Microservices, Docker, Kubernetes, Helm, Cluster Technology, CI/CD, Deployment Pipeline, AWS EKS, AWS CodeBuild, AWS ECS, AWS ECR, AWS Fargate, Heroku, AWS API Gateway, AWS NLB, AWS CloudFormation, AWS CloudFront, CDN, VPC, NAT
+- Database: MongoDB, Sharding, Replication, DB Clusters, AWS S3.
+- Other: Git, Linux, YAML, makefile, dockerfile, buildspec.
+
 ### Microservices
 
-- User Service - This service handles the sign up and login of user on airbnb app. Hashed passwords are stored using Bcrypt.
+- User Service - This microservice handles the sign up, login, and session management for all users. Hashed passwords are stored using Bcrypt.
 
-- Dashboard Service - This microservice takes care of the profile updation of the user on the website. Moreover it handles the traveler and owner dashboard which displays booked trips and properties.
+- Dashboard Service - This microservice handles the traveler/owner dashboards which display the booked trips and properties. Additionally, it handles the profile updates for all the user. 
 
-- Property Service - This service handles the creation of a new property along with posting pictures, viewing of the created property and searching a property.
+- Property Service - This microservice handles the creation of a new property by an owner along with posting pictures and viewing of the created property. It also handles the searching of a property by a traveler.
 
-- Booking Service - This service looks after the booking part of the property and updating the traveler and owner dashboard accordingly.
+- Booking Service - This microservice handles booking of a property and integrating the corresponding updates on the traveler and owner dashboard.
+
+
+### AKF Scaling Cube utilization
+
+- X-axis scaling - The X-axis scale is addressed by replicating each microservice across multiple instances which increases the throughput and provides fault tolerant capabilities to the database layer.
+
+- Y-axis Scaling - By making the application loose-coupled through a microservice architecture based on the functionalities and deploying these microservices using separate locations and AWS accounts, the application addresses the Y-axis scaling.
+
+- Z-axis Scaling - The NoSQL database i.e the MongoDB is sharded and utilizes query routers and config servers to address the Z-axis scale.
 
 
 ### Deployment description
 
 - **Frontend**:
 
-	Frontend in developed using ReactJS, HTML, CSS, and Bootstrap. The web app is deployed on Heroku with CI/CD. Therefore, whenever a code change is pushed to the master branch of the repo, the changed code is automatically deployed and it reflects on the frontend.
+	The frontend, which is developed using ReactJS, HTML, CSS, and Bootstrap, is deployed on Heroku with CI/CD. Whenever a code change is pushed to the master branch of the repo, the change is automatically deployed and it reflects on the frontend.
 
 - **Backend**:
 
-	Login Service - It is deployed on the AWS managed Kubernetes cluster - EKS, having two worker nodes with two pods in each of them.
+	Login Service - Deployed on AWS EKS (managed Kubernetes cluster), having two worker nodes with two pods in each node.
 
-	Dashboard Service - This backend service is deployed on AWS ECS. There is a network load balancer in front of the three ECS tasks. Moreover, the whole process is automated using the CI/CD pipeline with AWS services such as CodeBuild and ECR.
+	Dashboard Service - Deployed on AWS ECS. There is a network load balancer in front of the three ECS tasks. Additionally, the whole process is automated using the CI/CD pipeline with AWS services such as CodeBuild and Elastic Container Registry (ECR).
 
-	Property Service - This is deployed on AWS ECS having three tasks kept behind a network load balancer. The docker image is pushed to Elastic Container Registry (ECR).
+	Property Service - Deployed on AWS ECS having three tasks kept behind a network load balancer. The docker image is pushed to AWS ECR.
 	
-	Booking Service - It is deployed on the AWS managed Kubernetes cluster - EKS, having two worker nodes with two pods in each of them.
-
-
-### AKF Scaling Cube utilization
-
-- X-axis scaling - The X-axis Scale has been addressed by replicating each microservice across multiple instances which 	increases the throughput and helps in avoiding failures.
-
-- Y-axis Scaling - By dividing each service based on their functions and deploying it to separate AWS accounts, our application also addresses the Y-axis scaling.
-
-- Z-axis Scaling - The NoSql database i.e MongoDB has been sharded to address the Z-axis Scale
+	Booking Service - Deployed on AWS EKS (managed Kubernetes cluster), having two worker nodes with two pods in each node.
 
 
 ### Deployment Documentation 
@@ -65,24 +73,24 @@ Darshil Kapadia, Kavina Desai, Shreyam Kela, Vinay Kovuri
 ### Contributions
 
 - Kavina:
-	- Concentrated on the backend go routes for the user dashboard
-    - Worked on designing the owner and traveler's dashboard pages and traveler update profile page
-    - Worked to create a CI/CD pipeline on AWS with CodeBuild, ECS cluster, ECR and load balancer
-    - Created mongodb sharding on the dashboard nosql database cluster for horizontal scalability
-    - Documentation of the hackathon project
+	- Concentrated on the backend go routes for the user dashboard.
+    - Worked on designing the owner and traveler's dashboard pages and traveler update profile page.
+    - Worked to create a CI/CD pipeline on AWS with CodeBuild, ECS cluster, ECR and load balancer.
+    - Created mongodb sharding on the dashboard nosql database cluster for horizontal scalability.
+    - Documentation of the project.
 
 - Darshil:
-	- Worked on UI related to posting of property and search results
-	- Developed the whole property microservice.
-	- Worked on configuring CDN with S3.
+	- Worked on UI related to posting of property and search results.
+	- Developed the complete property microservice.
+	- Worked on configuring CDN with S3 for property images.
 	- Worked on codebuild to trigger building of docker image on the event of pushing on master branch.
-	- worked on creating mongoshards for property microservice.
+	- Worked on creating mongoshards for property microservice.
 
 - Shreyam:
 	- Developed the end-to-end flow of the User Registration / Login micro service. 
 	- Built the Go backend for Login and Sign Up with password hashing using Bcrypt.  
 	- Created the Login and Signup web pages for travelers and owners, using ReactJS. 
-	- Deployed the frontend of the Airbnb app on Heroku with CI/CD.  
+	- Deployed the frontend of the app on Heroku with CI/CD.  
 	- Worked with the team in deploying the Login micro service to Amazon managed Kubernetes cluster - EKS. 
 	- Configured an Amazon API Gateway as a single entry point for the frontend to connect to the different load balancers of the 4 micro services.
 
@@ -92,3 +100,4 @@ Darshil Kapadia, Kavina Desai, Shreyam Kela, Vinay Kovuri
 	- Inputs about the architecture of the project.
 	- Worked on front modules like payment and pages that included operations on booking microservice.
  	- Implemented deployment of docker images of booking microservice on AWS EKS.
+	- System Architecture diagram of the project.
