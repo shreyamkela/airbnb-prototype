@@ -13,11 +13,11 @@ Airbnb project is a prototype of the original Airbnb website where users can arr
 
 ### Technologies Utilized:
 
-- UI: React, HTML5, CSS3, Bootstrap, JavaScript.
-- Server: Go, REST API, BSON, JSON, Bcrypt.
-- Infrastructure: Microservices, Docker, Kubernetes, Helm, Cluster Technology, CI/CD, Deployment Pipeline, AWS EKS, AWS CodeBuild, AWS ECS, AWS ECR, AWS Fargate, Heroku, AWS API Gateway, AWS NLB, AWS CloudFormation, AWS CloudFront, CDN, VPC, NAT
-- Database: MongoDB, Sharding, Replication, DB Clusters, AWS S3.
-- Other: Git, Linux, YAML, makefile, dockerfile, buildspec.
+- UI - React, HTML5, CSS3, Bootstrap, JavaScript.
+- Server - Go, REST API, BSON, JSON, Bcrypt.
+- Infrastructure - Microservices, Docker, Kubernetes, Helm, Cluster Technology, CI/CD, Deployment Pipeline, AWS EKS, AWS CodeBuild, AWS ECS, AWS ECR, AWS Fargate, Heroku, AWS API Gateway, AWS NLB, AWS CloudFormation, AWS CloudFront, CDN, VPC, NAT
+- Database - MongoDB, Sharding, Replication, DB Clusters, AWS S3.
+- Other - Linux, YAML, makefile, dockerfile, buildspec, Git.
 
 ### Microservices
 
